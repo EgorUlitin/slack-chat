@@ -13,7 +13,6 @@ import Layout from './Layout.jsx';
 import ChatPage from './ChatPage.jsx';
 
 import AuthContext from '../contexts/index.jsx';
-import useAuth from '../hooks/index.jsx';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -32,11 +31,12 @@ const AuthProvider = ({ children }) => {
 };
 
 const PrivetRoute = ({ children }) => {
-  const auth = useAuth();
+
+  const { token } = localStorage.length && JSON.parse(localStorage.user);
   const location = useLocation();
 
   return (
-    auth.loggedIn ? children : <Navigate to='/login' state={{ state: location }} />
+    token ? children : <Navigate to='/login' state={{ state: location }} />
   )
 };
 
@@ -47,8 +47,7 @@ const App = () => (
         <Route index element={(
           <PrivetRoute>
             <ChatPage />
-          </PrivetRoute>
-        )} />
+          </PrivetRoute>)} />
         <Route path='login' element={<LoginPage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Route>
