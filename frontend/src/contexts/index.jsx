@@ -1,5 +1,19 @@
-import { createContext } from 'react';
+import React from 'react';
 
-const AuthContext = createContext({});
+import AuthProvider from './AuthProvider';
+import ReduxProvider from './ReduxProvider';
+import ApiProvider from './ApiProvider';
 
-export default AuthContext;
+const Providers = ({ children, api }) => {
+  return (
+    <ApiProvider api={api}>
+      <ReduxProvider>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </ReduxProvider>
+    </ApiProvider>
+  );
+}
+
+export default Providers;

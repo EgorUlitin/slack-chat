@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import useAuth from '../hooks/index.jsx';
+import { useAuth } from '../contexts/AuthProvider';
 import routes from '../routes/routes.js';
 import * as yup from 'yup';
 
@@ -40,7 +40,7 @@ const LoginPage = () => {
           const res = await axios.post(routes.loginPath(), values);
           localStorage.setItem('user', JSON.stringify(res.data));
           auth.logIn();
-          const { from } = location.state || { from: { pathname: '/' } };
+          const { from } = location.state?.pathname || { from: { pathname: '/' } };
           navigate(from);
         })
         .catch(() => setAuthFailed(true));
