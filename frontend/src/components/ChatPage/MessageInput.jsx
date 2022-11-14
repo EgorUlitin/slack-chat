@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { useApi } from '../../contexts/ApiProvider';
+import { useAuth } from '../../contexts/AuthProvider'
 import * as yup from 'yup';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { currentChannelIdSelector } from '../../slices';
@@ -12,6 +13,7 @@ let schema = yup.object().shape({
 const MessageInput = () => {
   const [isDisabled, toggleDisabled] = useState(true);
   const [message, setMessage] = useState('');
+  const { user: { username } } = useAuth();
 
   const currentChannelId = useSelector(currentChannelIdSelector);
 
@@ -34,10 +36,12 @@ const MessageInput = () => {
     e.preventDefault();
 
     if (message) {
-      const data = { body: message, channelId: currentChannelId, username: 'Alena' }
+      const data = { body: message, channelId: currentChannelId, username }
       createNewMessage(data)
       setMessage('');
+      toggleDisabled(true);
     }
+
     inputRef.current.focus();
   }
 

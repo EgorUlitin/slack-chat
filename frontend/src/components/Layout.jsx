@@ -12,7 +12,7 @@ const Layout = () => {
           <Navbar expand="xxl" className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
             <Container>
               <Navbar.Brand as={Link} to="/" expand="lg" variant="light" bg="white">Hexlet Chat</Navbar.Brand>
-              {auth.loggedIn && <Button as={Link} to='/login' onClick={auth.logOut}>Выйти</Button>}
+              {auth.user.username && <Button as={Link} to='/login' onClick={auth.logOut}>Выйти</Button>}
             </Container>
           </Navbar>
           <Outlet />

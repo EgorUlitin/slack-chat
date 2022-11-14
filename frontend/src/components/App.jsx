@@ -11,6 +11,7 @@ import LoginPage from './LoginPage.jsx';
 import NotFoundPage from './NotFoundPage.jsx';
 import Layout from './Layout.jsx';
 import ChatPage from './ChatPage/ChatPage.jsx';
+import SingupPage from './SingupPage.jsx';
 
 const PrivetRoute = ({ children }) => {
   const { token } = localStorage.length && JSON.parse(localStorage.user);
@@ -29,6 +30,7 @@ const App = () => (
           <ChatPage />
         </PrivetRoute>)} />
       <Route path='login' element={<LoginPage />} />
+      <Route path='signup' element={<SingupPage />} />
       <Route path='*' element={<NotFoundPage />} />
     </Route>
   </Routes>

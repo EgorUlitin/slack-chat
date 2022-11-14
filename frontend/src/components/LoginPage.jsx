@@ -37,9 +37,10 @@ const LoginPage = () => {
 
       schema.validate(values)
         .then(async (values) => {
-          const res = await axios.post(routes.loginPath(), values);
-          localStorage.setItem('user', JSON.stringify(res.data));
-          auth.logIn();
+          const { data: { username, token } } = await axios.post(routes.loginPath(), values);
+
+          auth.logIn({ username, token });
+
           const { from } = location.state?.pathname || { from: { pathname: '/' } };
           navigate(from);
         })
