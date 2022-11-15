@@ -11,7 +11,7 @@ import NotFoundPage from './NotFoundPage.jsx';
 import Layout from './Layout.jsx';
 import ChatPage from './ChatPage/ChatPage.jsx';
 import SingupPage from './SingupPage.jsx';
-import AddChannelModal from './Modal/AddChannelModal';
+import AddChannelModal from './Modals/AddChannelModal';
 
 const PrivetRoute = ({ children }) => {
   const { token } = localStorage.length && JSON.parse(localStorage.user);
