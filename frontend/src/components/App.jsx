@@ -4,7 +4,6 @@ import {
   useLocation,
   Navigate,
 } from 'react-router-dom';
-// import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import LoginPage from './LoginPage.jsx';
@@ -12,6 +11,7 @@ import NotFoundPage from './NotFoundPage.jsx';
 import Layout from './Layout.jsx';
 import ChatPage from './ChatPage/ChatPage.jsx';
 import SingupPage from './SingupPage.jsx';
+import AddChannelModal from './Modal/AddChannelModal';
 
 const PrivetRoute = ({ children }) => {
   const { token } = localStorage.length && JSON.parse(localStorage.user);
@@ -28,6 +28,7 @@ const App = () => (
       <Route index element={(
         <PrivetRoute>
           <ChatPage />
+          <AddChannelModal />
         </PrivetRoute>)} />
       <Route path='login' element={<LoginPage />} />
       <Route path='signup' element={<SingupPage />} />

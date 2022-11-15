@@ -14,10 +14,10 @@ const MessageInput = () => {
   const [isDisabled, toggleDisabled] = useState(true);
   const [message, setMessage] = useState('');
   const { user: { username } } = useAuth();
+  const inputRef = useRef();
 
   const currentChannelId = useSelector(currentChannelIdSelector);
 
-  const inputRef = useRef();
   const { createNewMessage } = useApi();
 
   const handleChange = () => (e) => {
