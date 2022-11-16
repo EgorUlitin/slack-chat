@@ -19,10 +19,8 @@ const ChatPage = () => {
   }, [dispatch]);
 
   const channels = useSelector(channelsSelector);
-
-  const messages = useSelector(messagesSelector);
-
   const currentChannel = useSelector(currentChannelIdSelector);
+  const messages = useSelector(messagesSelector);
 
   if (!channels || channels.length === 0) {
     return null;
