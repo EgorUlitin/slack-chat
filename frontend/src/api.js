@@ -12,10 +12,7 @@ const api = () => {
   
   socket.on('newMessage', (payload) => dispatch(addMessage(payload)));
   
-  // const switchCallBack = (data) => dispatch(switchChannel({ id: data.id }));
-  const createNewChannel = (name) => socket.emit('newChannel', name, ({ data, status }) => {
-    dispatch(switchChannel({ id: data.id }))
-  });
+  const createNewChannel = (name) => socket.emit('newChannel', name, ({ data, status }) => dispatch(switchChannel({ id: data.id })));
 
   const createMessage = (message) => socket.emit('newMessage', message);
   

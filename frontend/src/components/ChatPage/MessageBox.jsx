@@ -1,15 +1,18 @@
-import { useSelector } from "react-redux";
-// import { useEffect } from "react";
-import { currentChannelMessagesSelector } from '../../slices';
+
+import ChannelHeader from "./ChannelHeader";
+import MessageInput from "./MessageInput";
+import MessagesList from "./MessagesList";
 
 const MessageBox = () => {
-  const messages = useSelector(currentChannelMessagesSelector);
-
   return (
-    <div id='messages-box' className="chat-messages overflow-auto px-5">
-      {messages.map(({ username, body, id }) => <div key={id} className="text-break mb-2"><b>{username}</b>: {body}</div>)}
+    <div className="col p-0 h-100">
+      <div className="d-flex flex-column h-100">
+        <ChannelHeader />
+        <MessagesList />
+        <MessageInput />
+      </div>
     </div>
   )
-}
+};
 
 export default MessageBox;
