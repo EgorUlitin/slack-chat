@@ -9,3 +9,5 @@ export const messagesSelector = (state) => state.messages.messages;
 export const currentChannelMessagesSelector = (state) => state.messages.messages.filter(({ channelId }) => state.channels.currentChannelId === channelId);
 
 export const typeModalSelector = (state) => state.modals.type;
+
+export const dataModalSelector = (state) => state.modals.data;

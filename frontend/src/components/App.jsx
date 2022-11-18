@@ -11,7 +11,7 @@ import NotFoundPage from './NotFoundPage.jsx';
 import Layout from './Layout.jsx';
 import ChatPage from './ChatPage/ChatPage.jsx';
 import SingupPage from './SingupPage.jsx';
-import AddChannelModal from './Modals/AddChannelModal';
+import ModalComponent from './Modals/index.js';
 
 const PrivetRoute = ({ children }) => {
   const { token } = localStorage.length && JSON.parse(localStorage.user);
@@ -28,7 +28,7 @@ const App = () => (
       <Route index element={(
         <PrivetRoute>
           <ChatPage />
-          <AddChannelModal />
+          <ModalComponent />
         </PrivetRoute>)} />
       <Route path='login' element={<LoginPage />} />
       <Route path='signup' element={<SingupPage />} />

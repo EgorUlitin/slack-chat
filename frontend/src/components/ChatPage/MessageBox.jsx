@@ -1,4 +1,3 @@
-
 import ChannelHeader from "./ChannelHeader";
 import MessageInput from "./MessageInput";
 import MessagesList from "./MessagesList";

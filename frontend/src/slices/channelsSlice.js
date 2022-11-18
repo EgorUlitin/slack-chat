@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchData } from './fetchData.js'
 
+const defaultChannelId = 1;
+
 const initialState = {
   channels: [],
-  currentChannelId: 1,
+  currentChannelId: defaultChannelId,
 };
 
 const channelsSlice = createSlice({
@@ -17,6 +19,12 @@ const channelsSlice = createSlice({
       const { id } = action.payload;
       state.currentChannelId = id;
     },
+    removeChannel: (state, action) => {
+      const { id } = action.payload;
+      state.channels = state.channels.filter(channel => id !== channel.id);
+
+      if (id === state.currentChannelId) state.currentChannelId = defaultChannelId;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -28,6 +36,6 @@ const channelsSlice = createSlice({
   },
 });
 
-export const { addChannels, switchChannel } = channelsSlice.actions;
+export const { addChannels, switchChannel, removeChannel } = channelsSlice.actions;
 
 export default channelsSlice.reducer;
