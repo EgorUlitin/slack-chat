@@ -1,14 +1,12 @@
-import React from 'react';
 import cn from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
+import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 
 import { channelsSelector, currentChannelIdSelector } from '../../slices';
 import { switchChannel } from '../../slices/channelsSlice';
 import { openModal } from '../../slices/modalsSlice';
 
 import ChannelAdder from "./ChannelAdder";
-
-import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 
 const ChannelList = () => {
   const dispatch = useDispatch();
