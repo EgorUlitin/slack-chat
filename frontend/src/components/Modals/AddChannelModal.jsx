@@ -36,10 +36,10 @@ const AddChannelModal = ({ onHide }) => {
           initialValues={{ name: '' }}
           validationSchema={object({
             name: string()
-              .min(3, 'Не меньше 3 букв')
-              .max(16, 'Не больше 16 символов')
+              .min(3, 'От 3 до 20 символов')
+              .max(20, 'От 3 до 20 символов')
               .notOneOf(existingChannelName, 'Должно быть уникальным')
-              .required('Поле не должно быть пустым'),
+              .required('Обязательное поле'),
           })}
           onSubmit={onSubmit}
           values
@@ -70,7 +70,6 @@ const AddChannelModal = ({ onHide }) => {
                 Имя Канала
               </FormLabel>
               <Form.Control.Feedback type="invalid">
-                {console.log()}
                 {!isValid && errors.name}
               </Form.Control.Feedback>
               <div className='d-flex justify-content-end'>

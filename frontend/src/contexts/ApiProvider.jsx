@@ -10,19 +10,22 @@ const ApiProvider = ({ children, api }) => {
   const createNewMessage = useCallback((message) => api.createMessage(message), [api]);
   const createNewChannel = useCallback((name) => api.createNewChannel(name), [api]);
   const apiRemoveChannel = useCallback((id) => api.apiRemoveChannel(id), [api]);
+  const apiRenameChannel = useCallback((data) => api.apiRenameChannel(data), [api]);
 
   const value = useMemo(() => ({
     connect,
     disconnect,
     createNewMessage,
     createNewChannel,
-    apiRemoveChannel
+    apiRemoveChannel,
+    apiRenameChannel
   }), [
     connect,
     disconnect,
     createNewMessage,
     createNewChannel,
-    apiRemoveChannel
+    apiRemoveChannel,
+    apiRenameChannel
   ])
 
   return (

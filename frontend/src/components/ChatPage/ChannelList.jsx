@@ -10,7 +10,6 @@ import ChannelAdder from "./ChannelAdder";
 
 const ChannelList = () => {
   const dispatch = useDispatch();
-
   const channels = useSelector(channelsSelector);
   const currentChannelId = useSelector(currentChannelIdSelector);
 
@@ -34,7 +33,7 @@ const ChannelList = () => {
                 title={''}
               >
                 <Dropdown.Item onClick={() => dispatch(openModal({ type: 'remove', data: id }))} eventKey="1">Удалить</Dropdown.Item>
-                <Dropdown.Item eventKey="2">Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'rename', data: id }))} eventKey="2">Переименовать</Dropdown.Item>
               </DropdownButton>}
             </ButtonGroup>
           </li>

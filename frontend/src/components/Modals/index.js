@@ -5,6 +5,7 @@ import { closeModal } from '../../slices/modalsSlice';
 
 import AddChannelModal from './AddChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
+import RenameChannelModal from './RenameChannelModal';
 
 const ModalComponent = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const ModalComponent = () => {
   const modalTypes = {
     create: AddChannelModal,
     remove: RemoveChannelModal,
+    rename: RenameChannelModal,
   };
 
   const Modal = modalTypes[type];

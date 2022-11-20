@@ -18,7 +18,7 @@ const RemoveChannelModal = ({ onHide }) => {
   const onSubmit = (id) => {
     apiRemoveChannel(id);
     onHide();
-  }
+  };
 
   return (
     <Modal
