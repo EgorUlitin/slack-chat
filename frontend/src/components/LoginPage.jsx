@@ -8,7 +8,7 @@ import { useAuth } from '../contexts/AuthProvider';
 import routes from '../routes/routes.js';
 import * as yup from 'yup';
 
-import image from '../image.jpg'
+import image from '../login_img.jpg';
 
 let schema = yup.object().shape({
   username: yup.string().required(),
@@ -87,9 +87,9 @@ const LoginPage = () => {
                   required
                 />
                 <Form.Label htmlFor='formPassword'>Пароль</Form.Label>
-                {authFailed && <div className='invalid-tooltip'>
-                  Неверные имя пользователя или пароль
-                </div>}
+                <Form.Control.Feedback type="invalid" tooltip>
+                  {authFailed && 'Неверные имя пользователя или пароль'}
+                </Form.Control.Feedback>
               </Form.Group>
               <Button className='w-100 mb-3 btn btn-outline-primary' variant="outline-primary" type="submit">
                 Войти
