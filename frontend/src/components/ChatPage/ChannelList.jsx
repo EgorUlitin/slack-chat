@@ -19,7 +19,7 @@ const ChannelList = () => {
       <ul className="nav flex-column nav-pills nav-fill px-2">
         {channels.map(({ id, name, removable }) => {
           const isActiveChannel = id === currentChannelId;
-          const style = cn("w-100 rounded-0 text-start btn", { 'btn-secondary': isActiveChannel });
+          const style = cn("w-100 rounded-0 text-start btn text-truncate", { 'btn-secondary': isActiveChannel });
           return <li key={id} className="nav-item w-100">
             <ButtonGroup className='d-flex'>
               <button onClick={() => dispatch(switchChannel({ id }))} className={style}>
