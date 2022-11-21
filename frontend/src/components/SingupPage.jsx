@@ -1,22 +1,16 @@
 import axios from 'axios';
-import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field } from 'formik';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/AuthProvider';
 import routes from '../routes/routes.js';
 import * as yup from 'yup';
 
 import image from '../signup_img.jpg';
 
-// let schema = yup.object().shape({
-//   username: yup.string().required(),
-//   password: yup.string().min(6).required(),
-//   confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Пароли должны совподать').required(),
-// });
-
 const SingupPage = () => {
+  const [isExistingUser, setExistingUser] = useState(false);
   const inputRef = useRef();
   const auth = useAuth();
   const location = useLocation();
@@ -26,8 +20,25 @@ const SingupPage = () => {
     inputRef.current?.focus();
   }, []);
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = ({ username, password }) => {
+    const body = { username, password };
+
+    axios.post(routes.signupPath(), body)
+      .then((response) => {
+        setExistingUser(false);
+
+        const { username, token } = response.data;
+
+        auth.logIn({ username, token });
+
+        const { from } = location.state?.pathname || { from: { pathname: '/' } };
+        navigate(from);
+      })
+      .catch(({ response }) => {
+        if (response.status === 409) {
+          setExistingUser(true);
+        }
+      })
   };
 
   return (
@@ -54,7 +65,6 @@ const SingupPage = () => {
                 values
                 errors
                 isValid
-              // touched
               >
                 {({
                   handleSubmit,
@@ -75,7 +85,7 @@ const SingupPage = () => {
                         value={values.username}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        isInvalid={touched.username && errors.username}
+                        isInvalid={isExistingUser || (touched.username && errors.username)}
                         required
                       />
                       <Form.Label htmlFor='username'>Имя пользователя</Form.Label>
@@ -93,7 +103,7 @@ const SingupPage = () => {
                         onBlur={handleBlur}
                         value={values.password}
                         autoComplete="current-password"
-                        isInvalid={touched.password && errors.password}
+                        isInvalid={isExistingUser || (touched.password && errors.password)}
                         required
                       />
                       <Form.Label htmlFor='password'>Пароль</Form.Label>
@@ -111,12 +121,15 @@ const SingupPage = () => {
                         onBlur={handleBlur}
                         value={values.confirmPassword}
                         autoComplete="current-confirmPassword"
-                        isInvalid={touched.confirmPassword && errors.confirmPassword}
+                        isInvalid={isExistingUser || (touched.confirmPassword && errors.confirmPassword)}
                         required
                       />
                       <Form.Label htmlFor='confirmPassword'>Подтвердите пароль</Form.Label>
                       <Form.Control.Feedback type="invalid" tooltip>
-                        {!isValid && errors.confirmPassword}
+                        {(!isValid && errors.confirmPassword) || (isExistingUser && 'Такой пользователь уже существует')}
+                      </Form.Control.Feedback>
+                      <Form.Control.Feedback type="invalid" tooltip>
+                        {isExistingUser && 'Такой пользователь уже существует'}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Button className='w-100 btn btn-outline-primary' variant="outline-primary" type="submit">
