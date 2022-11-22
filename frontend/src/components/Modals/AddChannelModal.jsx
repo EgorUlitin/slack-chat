@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Modal, Button, FormLabel, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { useApi } from '../../contexts/ApiProvider';
@@ -11,6 +12,8 @@ import { channelsSelector } from '../../slices';
 const AddChannelModal = ({ onHide }) => {
   const inputRef = useRef();
   const { createNewChannel } = useApi();
+  const { t } = useTranslation();
+
   const existingChannelName = useSelector(channelsSelector).map(({ name }) => name);
 
   const onSubmit = (name) => {
@@ -29,17 +32,17 @@ const AddChannelModal = ({ onHide }) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modals.addChannelModal.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
           initialValues={{ name: '' }}
           validationSchema={object({
             name: string()
-              .min(3, 'От 3 до 20 символов')
-              .max(20, 'От 3 до 20 символов')
-              .notOneOf(existingChannelName, 'Должно быть уникальным')
-              .required('Обязательное поле'),
+              .min(3, t('modals.erorrs.min'))
+              .max(20, t('modals.erorrs.max'))
+              .notOneOf(existingChannelName, t('modals.erorrs.notOneOf'))
+              .required(t('modals.erorrs.required')),
           })}
           onSubmit={onSubmit}
           values
@@ -67,19 +70,18 @@ const AddChannelModal = ({ onHide }) => {
               <FormLabel
                 htmlFor='name'
                 className='visually-hidden'>
-                Имя Канала
+                {t('modals.addChannelModal.lable')}
               </FormLabel>
               <Form.Control.Feedback type="invalid">
                 {!isValid && errors.name}
               </Form.Control.Feedback>
               <div className='d-flex justify-content-end'>
-                <Button className='me-2 btn-secondary' onClick={onHide}>Отменить</Button>
-                <Button type='submit' className='btn-primary'>Отправить</Button>
+                <Button className='me-2 btn-secondary' onClick={onHide}>{t('modals.addChannelModal.cancel')}</Button>
+                <Button type='submit' className='btn-primary'>{t('modals.addChannelModal.send')}</Button>
               </div>
             </Form>
           )}
         </Formik>
-
       </Modal.Body>
     </Modal >
   )

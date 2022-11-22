@@ -4,6 +4,7 @@ import { Formik, Field } from 'formik';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/AuthProvider';
+import { useTranslation } from 'react-i18next';
 import routes from '../routes/routes.js';
 import * as yup from 'yup';
 
@@ -13,6 +14,7 @@ const SingupPage = () => {
   const [isExistingUser, setExistingUser] = useState(false);
   const inputRef = useRef();
   const auth = useAuth();
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -55,11 +57,11 @@ const SingupPage = () => {
                 initialValues={{ username: '', password: '', confirmPassword: '' }}
                 validationSchema={yup.object({
                   username: yup.string()
-                    .min(3, 'От 3 до 20 символов')
-                    .max(20, 'От 3 до 20 символов')
-                    .required('Обязательное поле'),
-                  password: yup.string().min(6, 'Не менее 6 символов').required('Обязательное поле'),
-                  confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Пароли должны совподать')
+                    .min(3, t('signupPage.erorrs.username.min'))
+                    .max(20, t('signupPage.erorrs.username.max'))
+                    .required(t('signupPage.erorrs.username.required')),
+                  password: yup.string().min(6, 'Не менее 6 символов').required(t('signupPage.erorrs.password.min')),
+                  confirmPassword: yup.string().oneOf([yup.ref('password'), null], t('signupPage.erorrs.confirmPassword'))
                 })}
                 onSubmit={onSubmit}
                 values
@@ -76,7 +78,7 @@ const SingupPage = () => {
                   touched
                 }) => (
                   <Form onSubmit={handleSubmit} className='col-12 col-md-6 mt-3 mt-mb-0'>
-                    <h1 className='text-center mb-4'>Регистрация</h1>
+                    <h1 className='text-center mb-4'>{t('signupPage.title')}</h1>
                     <Form.Group className='form-floating mb-3'>
                       <Field
                         as={Form.Control}
@@ -88,7 +90,7 @@ const SingupPage = () => {
                         isInvalid={isExistingUser || (touched.username && errors.username)}
                         required
                       />
-                      <Form.Label htmlFor='username'>Имя пользователя</Form.Label>
+                      <Form.Label htmlFor='username'>{t('signupPage.usernameLable')}</Form.Label>
                       <Form.Control.Feedback type="invalid" tooltip>
                         {!isValid && errors.username}
                       </Form.Control.Feedback>
@@ -106,7 +108,7 @@ const SingupPage = () => {
                         isInvalid={isExistingUser || (touched.password && errors.password)}
                         required
                       />
-                      <Form.Label htmlFor='password'>Пароль</Form.Label>
+                      <Form.Label htmlFor='password'>{t('signupPage.passwordLable')}</Form.Label>
                       <Form.Control.Feedback type="invalid" tooltip>
                         {!isValid && errors.password}
                       </Form.Control.Feedback>
@@ -124,7 +126,7 @@ const SingupPage = () => {
                         isInvalid={isExistingUser || (touched.confirmPassword && errors.confirmPassword)}
                         required
                       />
-                      <Form.Label htmlFor='confirmPassword'>Подтвердите пароль</Form.Label>
+                      <Form.Label htmlFor='confirmPassword'>{t('signupPage.confirmPasswordLable')}</Form.Label>
                       <Form.Control.Feedback type="invalid" tooltip>
                         {(!isValid && errors.confirmPassword) || (isExistingUser && 'Такой пользователь уже существует')}
                       </Form.Control.Feedback>
@@ -133,7 +135,7 @@ const SingupPage = () => {
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Button className='w-100 btn btn-outline-primary' variant="outline-primary" type="submit">
-                      Зарегистрироваться
+                      {t('signupPage.registration')}
                     </Button>
                   </Form>
                 )}

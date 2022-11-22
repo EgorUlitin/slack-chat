@@ -1,6 +1,7 @@
 import axios from 'axios';
 import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ const LoginPage = () => {
 
   const inputRef = useRef();
   const auth = useAuth();
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -59,7 +61,7 @@ const LoginPage = () => {
               <Card.Img className='rounded-circle' variant="center" src={image} />
             </div>
             <Form onSubmit={formik.handleSubmit} className='col-12 col-md-6 mt-3 mt-mb-0'>
-              <h1 className='text-center mb-4'>Войти</h1>
+              <h1 className='text-center mb-4'>{t('loginPage.title')}</h1>
               <Form.Group className='form-floating mb-3'>
                 <Form.Control
                   className={inputStyle}
@@ -72,7 +74,7 @@ const LoginPage = () => {
                   required
                   ref={inputRef}
                 />
-                <Form.Label htmlFor='formName'>Ваш ник</Form.Label>
+                <Form.Label htmlFor='formName'>{t('loginPage.nicknameLable')}</Form.Label>
               </Form.Group>
               <Form.Group className="form-floating mb-4">
                 <Form.Control
@@ -86,20 +88,20 @@ const LoginPage = () => {
                   placeholder="Пароль"
                   required
                 />
-                <Form.Label htmlFor='formPassword'>Пароль</Form.Label>
+                <Form.Label htmlFor='formPassword'>{t('loginPage.passwordLable')}</Form.Label>
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {authFailed && 'Неверные имя пользователя или пароль'}
+                  {authFailed && t('loginPage.wrongData')}
                 </Form.Control.Feedback>
               </Form.Group>
               <Button className='w-100 mb-3 btn btn-outline-primary' variant="outline-primary" type="submit">
-                Войти
+                {t('loginPage.login')}
               </Button>
             </Form>
           </Card.Body>
           <Card.Footer className='p-4'>
             <div className='text-center'>
-              <span>Нет аккаунта? </span>
-              <Link to="/signup">Регистрация</Link>
+              <span>{t('loginPage.footerText')}</span>
+              <Link to="/signup">{t('loginPage.footerLink')}</Link>
             </div>
           </Card.Footer>
         </Card>

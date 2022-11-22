@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 
 import { channelsSelector, currentChannelIdSelector } from '../../slices';
@@ -11,6 +12,8 @@ import ChannelAdder from "./ChannelAdder";
 const ChannelList = () => {
   const dispatch = useDispatch();
   const channels = useSelector(channelsSelector);
+  const { t } = useTranslation();
+
   const currentChannelId = useSelector(currentChannelIdSelector);
 
   return (
@@ -32,8 +35,8 @@ const ChannelList = () => {
                 variant={isActiveChannel ? 'secondary' : ''}
                 title={''}
               >
-                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'remove', data: id }))} eventKey="1">Удалить</Dropdown.Item>
-                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'rename', data: id }))} eventKey="2">Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'remove', data: id }))} eventKey="1">{t('channelList.delete')}</Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'rename', data: id }))} eventKey="2">{t('channelList.rename')}</Dropdown.Item>
               </DropdownButton>}
             </ButtonGroup>
           </li>
