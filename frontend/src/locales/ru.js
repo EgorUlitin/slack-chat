@@ -79,6 +79,17 @@ const ru = {
       span: 'Но вы можете перейти ',
       link: 'на главную страницу',
     },
+    toast: {
+      addChannel: {
+        succes: 'Канал добавлен',
+      },
+      renameChannel: {
+        succes: 'Канал переименован',
+      },
+      removeChannel: {
+        succes: 'Канал удален',
+      },
+    }
   },
 };
 

@@ -3,6 +3,8 @@ import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+// import { useRollbar } from '@rollbar/react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/AuthProvider';
@@ -19,6 +21,7 @@ let schema = yup.object().shape({
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
 
+  // const rollbar = useRollbar();
   const inputRef = useRef();
   const auth = useAuth();
   const { t } = useTranslation();
@@ -46,7 +49,16 @@ const LoginPage = () => {
           const { from } = location.state?.pathname || { from: { pathname: '/' } };
           navigate(from);
         })
-        .catch(() => setAuthFailed(true));
+        .catch((error) => {
+          // rollbar.error('Error on login', error, values);
+          if (error?.response?.status === 401) {
+            setAuthFailed(true);
+          };
+
+          if (error.code === "ERR_NETWORK") {
+            toast.error("Ошибка соединения");
+          };
+        });
     },
   });
 

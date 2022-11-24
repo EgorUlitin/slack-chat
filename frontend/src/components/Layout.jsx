@@ -2,6 +2,8 @@ import { Outlet, Link } from 'react-router-dom';
 import { Container, Navbar, Button } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthProvider';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = () => {
   const auth = useAuth();
@@ -19,6 +21,7 @@ const Layout = () => {
           </Navbar>
           <Outlet />
         </div>
+        <ToastContainer />
       </div>
     </div>
   </div>

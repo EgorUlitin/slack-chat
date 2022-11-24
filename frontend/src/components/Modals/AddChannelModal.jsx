@@ -5,9 +5,9 @@ import { Modal, Button, FormLabel, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { useApi } from '../../contexts/ApiProvider';
 import { object, string } from 'yup';
+import filter from 'leo-profanity';
 
 import { channelsSelector } from '../../slices';
-
 
 const AddChannelModal = ({ onHide }) => {
   const inputRef = useRef();
@@ -16,8 +16,10 @@ const AddChannelModal = ({ onHide }) => {
 
   const existingChannelName = useSelector(channelsSelector).map(({ name }) => name);
 
-  const onSubmit = (name) => {
-    createNewChannel(name);
+  const onSubmit = (data) => {
+    const filtredName = filter.clean(data.name);
+
+    createNewChannel({ name: filtredName });
     onHide();
   };
 
@@ -85,6 +87,6 @@ const AddChannelModal = ({ onHide }) => {
       </Modal.Body>
     </Modal >
   )
-}
+};
 
 export default AddChannelModal;

@@ -5,6 +5,7 @@ import { useApi } from '../../contexts/ApiProvider';
 import { useAuth } from '../../contexts/AuthProvider'
 import * as yup from 'yup';
 import { Form, InputGroup, Button } from 'react-bootstrap';
+import filter from 'leo-profanity';
 import { currentChannelIdSelector } from '../../slices';
 
 let schema = yup.object().shape({
@@ -22,7 +23,6 @@ const MessageInput = () => {
 
   const currentChannelId = useSelector(currentChannelIdSelector);
 
-
   const handleChange = () => (e) => {
     e.preventDefault();
 
@@ -32,7 +32,7 @@ const MessageInput = () => {
       .then(() => toggleDisabled(false))
       .catch(() => toggleDisabled(true));
 
-    setMessage(e.target.value);
+    setMessage(filter.clean(e.target.value));
   };
 
   const handleSubmit = () => (e) => {

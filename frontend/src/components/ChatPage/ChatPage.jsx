@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { Container, Row } from 'react-bootstrap';
+// import { useRollbar } from '@rollbar/react';
 
 import { fetchData } from '../../slices/fetchData';
 
@@ -9,6 +10,7 @@ import MessageBox from "./MessageBox";
 
 const ChatPage = () => {
   const dispatch = useDispatch();
+  // const rollbar = useRollbar();
 
   useEffect(() => {
     dispatch(fetchData());

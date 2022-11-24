@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client';
+import { toast } from 'react-toastify';
 import store from './slices';
 import { addChannels, switchChannel, removeChannel, renameChannel } from './slices/channelsSlice';
 import { addMessage, removeMessagesByChannelId } from './slices/messagesSlice';
@@ -19,15 +20,24 @@ const api = () => {
     dispatch(removeMessagesByChannelId(payload));
   });
   
-  const createNewChannel = (name) => socket.emit('newChannel', name, ({ data, status }) => {
+  const createNewChannel = (t) => (name) => socket.emit('newChannel', name, ({ data, status }) => {
     if (status === 'ok') {
       dispatch(switchChannel({ id: data.id }));
+      toast.success(t('toast.addChannel.succes'));
     };
   });
 
-  const apiRenameChannel = (payload) => socket.emit('renameChannel', payload)
+  const apiRenameChannel = (t) => (payload) => socket.emit('renameChannel', payload, ({ status }) => {
+    if (status === 'ok') {
+      toast.success(t('toast.renameChannel.succes'));
+    }
+  });
 
-  const apiRemoveChannel = (id) => socket.emit('removeChannel', { id });
+  const apiRemoveChannel = (t) => (id) => socket.emit('removeChannel', { id }, ({ status }) => {
+    if (status === 'ok') {
+      toast.success(t('toast.removeChannel.succes'));
+    };
+  });
 
   const createMessage = (message) => socket.emit('newMessage', message);
   
