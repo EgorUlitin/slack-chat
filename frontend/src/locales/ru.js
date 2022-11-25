@@ -54,6 +54,7 @@ const ru = {
       login: 'Войти',
       footerText: 'Нет аккаунта? ',
       footerLink: 'Регистрация',
+      fetchError: 'Ошибка соединения',
     },
     signupPage: {
       erorrs: {

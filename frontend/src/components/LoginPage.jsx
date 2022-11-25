@@ -51,12 +51,13 @@ const LoginPage = () => {
         })
         .catch((error) => {
           rollbar.error('Error on login', error, values);
+
           if (error?.response?.status === 401) {
             setAuthFailed(true);
           };
 
           if (error.code === "ERR_NETWORK") {
-            toast.error("Ошибка соединения");
+            toast.error(t('loginPage.fetchError'));
           };
         });
     },
