@@ -5,6 +5,7 @@ import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/AuthProvider';
 import { useTranslation } from 'react-i18next';
+import { useRollbar } from '@rollbar/react';
 import routes from '../routes/routes.js';
 import * as yup from 'yup';
 
@@ -17,6 +18,7 @@ const SingupPage = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const rollbar = useRollbar();
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -36,8 +38,9 @@ const SingupPage = () => {
         const { from } = location.state?.pathname || { from: { pathname: '/' } };
         navigate(from);
       })
-      .catch(({ response }) => {
-        if (response.status === 409) {
+      .catch((error) => {
+        rollbar.error('Error on signup', error);
+        if (error.response.status === 409) {
           setExistingUser(true);
         }
       })

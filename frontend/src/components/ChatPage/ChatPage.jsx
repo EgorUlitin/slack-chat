@@ -13,7 +13,7 @@ const ChatPage = () => {
   const rollbar = useRollbar();
 
   useEffect(() => {
-    dispatch(fetchData()).catch(error => rollbar.error('Error on login', error))
+    dispatch(fetchData()).catch(error => rollbar.error('Error on fetchData', error))
   }, [dispatch, rollbar]);
 
   return (
