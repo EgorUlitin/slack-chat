@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
-// import { useRollbar } from '@rollbar/react';
+import { useRollbar } from '@rollbar/react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/AuthProvider';
@@ -21,7 +21,7 @@ let schema = yup.object().shape({
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
 
-  // const rollbar = useRollbar();
+  const rollbar = useRollbar();
   const inputRef = useRef();
   const auth = useAuth();
   const { t } = useTranslation();
@@ -50,7 +50,7 @@ const LoginPage = () => {
           navigate(from);
         })
         .catch((error) => {
-          // rollbar.error('Error on login', error, values);
+          rollbar.error('Error on login', error, values);
           if (error?.response?.status === 401) {
             setAuthFailed(true);
           };
