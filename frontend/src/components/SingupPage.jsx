@@ -82,6 +82,7 @@ const SingupPage = () => {
                     <Form.Group className='form-floating mb-3'>
                       <Field
                         as={Form.Control}
+                        id="username"
                         name="username"
                         placeholder="Имя пользователя"
                         value={values.username}
@@ -99,6 +100,7 @@ const SingupPage = () => {
                       <Field
                         as={Form.Control}
                         placeholder="Пароль"
+                        id="password"
                         name="password"
                         type="password"
                         onChange={handleChange}
@@ -116,6 +118,7 @@ const SingupPage = () => {
                     <Form.Group className="form-floating mb-4">
                       <Field
                         as={Form.Control}
+                        id="confirmPassword"
                         name="confirmPassword"
                         type="password"
                         placeholder="Пароль"
