@@ -67,7 +67,7 @@ const ru = {
           min: 'Не менее 6 символов',
           required: 'Обязательное поле',
         },
-        confirmPassword: 'Пароли должны совподать',
+        confirmPassword: 'Пароли должны совпадать',
       },
       title: 'Регистрация',
       usernameLable: 'Имя пользователя',
