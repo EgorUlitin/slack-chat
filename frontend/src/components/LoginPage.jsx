@@ -87,7 +87,7 @@ const LoginPage = () => {
                   required
                   ref={inputRef}
                 />
-                <Form.Label htmlFor='formName'>{t('loginPage.nicknameLable')}</Form.Label>
+                <Form.Label htmlFor='username'>{t('loginPage.nicknameLable')}</Form.Label>
               </Form.Group>
               <Form.Group className="form-floating mb-4">
                 <Form.Control
@@ -101,7 +101,7 @@ const LoginPage = () => {
                   placeholder="Пароль"
                   required
                 />
-                <Form.Label htmlFor='formPassword'>{t('loginPage.passwordLable')}</Form.Label>
+                <Form.Label htmlFor='password'>{t('loginPage.passwordLable')}</Form.Label>
                 <Form.Control.Feedback type="invalid" tooltip>
                   {authFailed && t('loginPage.wrongData')}
                 </Form.Control.Feedback>
