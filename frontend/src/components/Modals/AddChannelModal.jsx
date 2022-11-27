@@ -70,6 +70,7 @@ function AddChannelModal({ onHide }) {
                 value={values.name}
                 ref={inputRef}
                 isInvalid={touched.name && errors.name}
+                type="text"
               />
               <FormLabel
                 htmlFor="name"
