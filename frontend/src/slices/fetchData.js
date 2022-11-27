@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import routes from '../routes/routes.js';
+import routes from '../routes/routes';
 
 export const fetchData = createAsyncThunk(
   'data/fetchData',
@@ -8,8 +8,8 @@ export const fetchData = createAsyncThunk(
     const { token } = localStorage.length && JSON.parse(localStorage.user);
     const response = await axios.get(routes.dataPath(), {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.data;
   },

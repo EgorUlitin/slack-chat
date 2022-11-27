@@ -1,15 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Modal, Button, FormLabel, Form } from 'react-bootstrap';
+import {
+  Modal, Button, FormLabel, Form,
+} from 'react-bootstrap';
 import { Formik } from 'formik';
-import { useApi } from '../../contexts/ApiProvider';
 import { object, string } from 'yup';
 import filter from 'leo-profanity';
+import { useApi } from '../../contexts/ApiProvider';
 
 import { channelsSelector } from '../../slices';
 
-const AddChannelModal = ({ onHide }) => {
+function AddChannelModal({ onHide }) {
   const inputRef = useRef();
   const { createNewChannel } = useApi();
   const { t } = useTranslation();
@@ -57,36 +59,37 @@ const AddChannelModal = ({ onHide }) => {
             values,
             errors,
             isValid,
-            touched
+            touched,
           }) => (
             <Form onSubmit={handleSubmit}>
               <Form.Control
-                name='name'
-                id='name'
-                className='mb-2'
+                name="name"
+                id="name"
+                className="mb-2"
                 onChange={handleChange}
                 value={values.name}
                 ref={inputRef}
                 isInvalid={touched.name && errors.name}
-              ></Form.Control>
+              />
               <FormLabel
-                htmlFor='name'
-                className='visually-hidden'>
+                htmlFor="name"
+                className="visually-hidden"
+              >
                 {t('modals.addChannelModal.lable')}
               </FormLabel>
               <Form.Control.Feedback type="invalid">
                 {!isValid && errors.name}
               </Form.Control.Feedback>
-              <div className='d-flex justify-content-end'>
-                <Button className='me-2 btn-secondary' onClick={onHide}>{t('modals.addChannelModal.cancel')}</Button>
-                <Button type='submit' className='btn-primary'>{t('modals.addChannelModal.send')}</Button>
+              <div className="d-flex justify-content-end">
+                <Button className="me-2 btn-secondary" onClick={onHide}>{t('modals.addChannelModal.cancel')}</Button>
+                <Button type="submit" className="btn-primary">{t('modals.addChannelModal.send')}</Button>
               </div>
             </Form>
           )}
         </Formik>
       </Modal.Body>
-    </Modal >
-  )
-};
+    </Modal>
+  );
+}
 
 export default AddChannelModal;

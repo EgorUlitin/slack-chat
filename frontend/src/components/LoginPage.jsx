@@ -5,20 +5,22 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import { useRollbar } from '@rollbar/react';
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from '../contexts/AuthProvider';
-import routes from '../routes/routes.js';
+import {
+  Container, Row, Col, Card, Form, Button,
+} from 'react-bootstrap';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import { useAuth } from '../contexts/AuthProvider';
+import routes from '../routes/routes';
 
 import image from '../login_img.jpg';
 
-let schema = yup.object().shape({
+const schema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().required(),
 });
 
-const LoginPage = () => {
+function LoginPage() {
   const [authFailed, setAuthFailed] = useState(false);
 
   const rollbar = useRollbar();
@@ -41,8 +43,8 @@ const LoginPage = () => {
       setAuthFailed(false);
 
       schema.validate(values)
-        .then(async (values) => {
-          const { data: { username, token } } = await axios.post(routes.loginPath(), values);
+        .then(async (data) => {
+          const { data: { username, token } } = await axios.post(routes.loginPath(), data);
 
           auth.logIn({ username, token });
 
@@ -54,73 +56,75 @@ const LoginPage = () => {
 
           if (error?.response?.status === 401) {
             setAuthFailed(true);
-          };
+          }
 
-          if (error.code === "ERR_NETWORK") {
+          if (error.code === 'ERR_NETWORK') {
             toast.error(t('loginPage.fetchError'));
-          };
+          }
         });
     },
   });
 
   const inputStyle = cn({ 'is-invalid': authFailed });
 
-  return <Container className='h-100' fluid>
-    <Row className="justify-content-center align-content-center h-100">
-      <Col className='col-12 col-md-8 col-xxl-6'>
-        <Card className="shadow-sm">
-          <Card.Body className='row p-5'>
-            <div className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
-              <Card.Img className='rounded-circle' variant="center" src={image} />
-            </div>
-            <Form onSubmit={formik.handleSubmit} className='col-12 col-md-6 mt-3 mt-mb-0'>
-              <h1 className='text-center mb-4'>{t('loginPage.title')}</h1>
-              <Form.Group className='form-floating mb-3'>
-                <Form.Control
-                  className={inputStyle}
-                  onChange={formik.handleChange}
-                  value={formik.values.username}
-                  id="username"
-                  name="username"
-                  autoComplete="username"
-                  placeholder="Ваш ник"
-                  required
-                  ref={inputRef}
-                />
-                <Form.Label htmlFor='username'>{t('loginPage.nicknameLable')}</Form.Label>
-              </Form.Group>
-              <Form.Group className="form-floating mb-4">
-                <Form.Control
-                  className={inputStyle}
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  id="password"
-                  type="password"
-                  name="password"
-                  autoComplete="current-password"
-                  placeholder="Пароль"
-                  required
-                />
-                <Form.Label htmlFor='password'>{t('loginPage.passwordLable')}</Form.Label>
-                <Form.Control.Feedback type="invalid" tooltip>
-                  {authFailed && t('loginPage.wrongData')}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Button className='w-100 mb-3 btn btn-outline-primary' variant="outline-primary" type="submit">
-                {t('loginPage.login')}
-              </Button>
-            </Form>
-          </Card.Body>
-          <Card.Footer className='p-4'>
-            <div className='text-center'>
-              <span>{t('loginPage.footerText')}</span>
-              <Link to="/signup">{t('loginPage.footerLink')}</Link>
-            </div>
-          </Card.Footer>
-        </Card>
-      </Col>
-    </Row>
-  </Container>
+  return (
+    <Container className="h-100" fluid>
+      <Row className="justify-content-center align-content-center h-100">
+        <Col className="col-12 col-md-8 col-xxl-6">
+          <Card className="shadow-sm">
+            <Card.Body className="row p-5">
+              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <Card.Img className="rounded-circle" variant="center" src={image} />
+              </div>
+              <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+                <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    className={inputStyle}
+                    onChange={formik.handleChange}
+                    value={formik.values.username}
+                    id="username"
+                    name="username"
+                    autoComplete="username"
+                    placeholder="Ваш ник"
+                    required
+                    ref={inputRef}
+                  />
+                  <Form.Label htmlFor="username">{t('loginPage.nicknameLable')}</Form.Label>
+                </Form.Group>
+                <Form.Group className="form-floating mb-4">
+                  <Form.Control
+                    className={inputStyle}
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    id="password"
+                    type="password"
+                    name="password"
+                    autoComplete="current-password"
+                    placeholder="Пароль"
+                    required
+                  />
+                  <Form.Label htmlFor="password">{t('loginPage.passwordLable')}</Form.Label>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {authFailed && t('loginPage.wrongData')}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Button className="w-100 mb-3 btn btn-outline-primary" variant="outline-primary" type="submit">
+                  {t('loginPage.login')}
+                </Button>
+              </Form>
+            </Card.Body>
+            <Card.Footer className="p-4">
+              <div className="text-center">
+                <span>{t('loginPage.footerText')}</span>
+                <Link to="/signup">{t('loginPage.footerLink')}</Link>
+              </div>
+            </Card.Footer>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
 
 export default LoginPage;

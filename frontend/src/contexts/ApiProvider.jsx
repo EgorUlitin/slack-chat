@@ -1,10 +1,11 @@
-import React, { useMemo, createContext, useContext } from 'react';
-import { useCallback } from 'react';
+import React, {
+  useMemo, createContext, useContext, useCallback,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 
 const ApiContext = createContext({});
 
-const ApiProvider = ({ children, api }) => {
+function ApiProvider({ children, api }) {
   const { t } = useTranslation();
 
   const connect = useCallback(() => api.connect(), [api]);
@@ -20,22 +21,22 @@ const ApiProvider = ({ children, api }) => {
     createNewMessage,
     createNewChannel,
     apiRemoveChannel,
-    apiRenameChannel
+    apiRenameChannel,
   }), [
     connect,
     disconnect,
     createNewMessage,
     createNewChannel,
     apiRemoveChannel,
-    apiRenameChannel
-  ])
+    apiRenameChannel,
+  ]);
 
   return (
     <ApiContext.Provider value={value}>
       {children}
     </ApiContext.Provider>
-  )
-};
+  );
+}
 
 export const useApi = () => useContext(ApiContext);
 

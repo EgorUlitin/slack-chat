@@ -6,7 +6,7 @@ import ApiProvider from './ApiProvider';
 import I18nextProvider from './I18nextProvider';
 import RollbarProvider from './RollbarProvider';
 
-const Providers = ({ children, api }) => {
+function Providers({ children, api }) {
   return (
     <RollbarProvider>
       <I18nextProvider>

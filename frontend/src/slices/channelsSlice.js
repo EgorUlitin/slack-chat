@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchData } from './fetchData.js'
+import { fetchData } from './fetchData';
 
 const defaultChannelId = 1;
 
@@ -21,15 +21,16 @@ const channelsSlice = createSlice({
     },
     removeChannel: (state, action) => {
       const { id } = action.payload;
-      state.channels = state.channels.filter(channel => id !== channel.id);
+      state.channels = state.channels.filter((channel) => id !== channel.id);
 
       if (id === state.currentChannelId) state.currentChannelId = defaultChannelId;
     },
     renameChannel: (state, action) => {
       const { id, name } = action.payload;
-      
-      state.channels = state.channels.map(channel => channel.id === id ? {  ...channel, name } : channel);
-    }
+
+      state.channels = state.channels
+        .map((channel) => (channel.id === id ? { ...channel, name } : channel));
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -37,10 +38,12 @@ const channelsSlice = createSlice({
         const { channels, currentChannelId } = action.payload;
         state.channels = channels;
         state.currentChannelId = currentChannelId;
-      })
+      });
   },
 });
 
-export const { addChannels, switchChannel, removeChannel, renameChannel } = channelsSlice.actions;
+export const {
+  addChannels, switchChannel, removeChannel, renameChannel,
+} = channelsSlice.actions;
 
 export default channelsSlice.reducer;

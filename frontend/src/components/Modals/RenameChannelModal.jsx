@@ -1,14 +1,16 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useApi } from '../../contexts/ApiProvider';
-import { Modal, Button, FormLabel, Form } from 'react-bootstrap';
+import {
+  Modal, Button, FormLabel, Form,
+} from 'react-bootstrap';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
+import { useApi } from '../../contexts/ApiProvider';
 
 import { channelsSelector, dataModalSelector } from '../../slices';
 
-const RenameChannelModal = ({ onHide }) => {
+function RenameChannelModal({ onHide }) {
   const { apiRenameChannel } = useApi();
   const { t } = useTranslation();
   const inputRef = useRef();
@@ -57,30 +59,30 @@ const RenameChannelModal = ({ onHide }) => {
             values,
             errors,
             isValid,
-            touched
+            touched,
           }) => (
             <Form onSubmit={handleSubmit}>
               <Form.Control
-                name='name'
-                id='name'
-                className='mb-2'
+                name="name"
+                id="name"
+                className="mb-2"
                 onChange={handleChange}
                 value={values.name}
                 ref={inputRef}
                 isInvalid={touched.name && errors.name}
-              ></Form.Control>
+              />
               <FormLabel
-                htmlFor='name'
-                className='visually-hidden'
+                htmlFor="name"
+                className="visually-hidden"
               >
                 {t('modals.renameChannelModal.lable')}
               </FormLabel>
               <Form.Control.Feedback type="invalid">
                 {!isValid && errors.name}
               </Form.Control.Feedback>
-              <div className='d-flex justify-content-end'>
-                <Button className='me-2 btn-secondary' onClick={onHide}>{t('modals.renameChannelModal.cancel')}</Button>
-                <Button type='submit' className='btn-primary'>{t('modals.renameChannelModal.send')}</Button>
+              <div className="d-flex justify-content-end">
+                <Button className="me-2 btn-secondary" onClick={onHide}>{t('modals.renameChannelModal.cancel')}</Button>
+                <Button type="submit" className="btn-primary">{t('modals.renameChannelModal.send')}</Button>
               </div>
             </Form>
           )}
@@ -88,6 +90,6 @@ const RenameChannelModal = ({ onHide }) => {
       </Modal.Body>
     </Modal>
   );
-};
+}
 
 export default RenameChannelModal;

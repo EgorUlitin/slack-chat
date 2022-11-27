@@ -1,8 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import channelsReducer from './channelsSlice.js';
-import messagesReducer from './messagesSlice.js';
-import modalsReducer from './modalsSlice.js';
-import { channelsSelector, currentChannelIdSelector, messagesSelector, currentChannelMessagesSelector, typeModalSelector, currentChannel, dataModalSelector } from './selectors.js';
+import channelsReducer from './channelsSlice';
+import messagesReducer from './messagesSlice';
+import modalsReducer from './modalsSlice';
+import {
+  channelsSelector,
+  currentChannelIdSelector,
+  messagesSelector,
+  currentChannelMessagesSelector,
+  typeModalSelector,
+  currentChannel,
+  dataModalSelector,
+} from './selectors';
 
 export default configureStore({
   reducer: {
@@ -12,4 +20,12 @@ export default configureStore({
   },
 });
 
-export { channelsSelector, currentChannelIdSelector, messagesSelector, currentChannelMessagesSelector, typeModalSelector, currentChannel, dataModalSelector }
+export {
+  channelsSelector,
+  currentChannelIdSelector,
+  messagesSelector,
+  currentChannelMessagesSelector,
+  typeModalSelector,
+  currentChannel,
+  dataModalSelector,
+};

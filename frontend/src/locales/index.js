@@ -1,4 +1,4 @@
-import ru from './ru.js';
+import ru from './ru';
 
 const resources = {
   ru,

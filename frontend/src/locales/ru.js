@@ -90,7 +90,7 @@ const ru = {
       removeChannel: {
         succes: 'Канал удалён',
       },
-    }
+    },
   },
 };
 

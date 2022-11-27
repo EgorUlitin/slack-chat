@@ -1,16 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field } from 'formik';
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from '../contexts/AuthProvider';
+import {
+  Container, Row, Col, Card, Form, Button,
+} from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import routes from '../routes/routes.js';
 import * as yup from 'yup';
+import { useAuth } from '../contexts/AuthProvider';
+import routes from '../routes/routes';
 
 import image from '../signup_img.jpg';
 
-const SingupPage = () => {
+function SingupPage() {
   const [isExistingUser, setExistingUser] = useState(false);
   const inputRef = useRef();
   const auth = useAuth();
@@ -22,8 +24,8 @@ const SingupPage = () => {
     inputRef.current?.focus();
   }, []);
 
-  const onSubmit = ({ username, password }) => {
-    const body = { username, password };
+  const onSubmit = (userData) => {
+    const body = { username: userData.username, password: userData.password };
 
     axios.post(routes.signupPath(), body)
       .then((response) => {
@@ -40,17 +42,17 @@ const SingupPage = () => {
         if (error.response.status === 409) {
           setExistingUser(true);
         }
-      })
+      });
   };
 
   return (
-    <Container className='h-100' fluid>
+    <Container className="h-100" fluid>
       <Row className="justify-content-center align-content-center h-100">
-        <Col className='col-12 col-md-8 col-xxl-6'>
+        <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
-            <Card.Body className='row p-5'>
-              <div className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
-                <Card.Img className='rounded-circle' variant="center" src={image} />
+            <Card.Body className="row p-5">
+              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <Card.Img className="rounded-circle" variant="center" src={image} />
               </div>
               <Formik
                 validateOnBlur
@@ -61,7 +63,7 @@ const SingupPage = () => {
                     .max(20, t('signupPage.erorrs.username.max'))
                     .required(t('signupPage.erorrs.username.required')),
                   password: yup.string().min(6, 'Не менее 6 символов').required(t('signupPage.erorrs.password.min')),
-                  confirmPassword: yup.string().oneOf([yup.ref('password'), null], t('signupPage.erorrs.confirmPassword'))
+                  confirmPassword: yup.string().oneOf([yup.ref('password'), null], t('signupPage.erorrs.confirmPassword')),
                 })}
                 onSubmit={onSubmit}
                 values
@@ -75,11 +77,11 @@ const SingupPage = () => {
                   values,
                   errors,
                   isValid,
-                  touched
+                  touched,
                 }) => (
-                  <Form onSubmit={handleSubmit} className='col-12 col-md-6 mt-3 mt-mb-0'>
-                    <h1 className='text-center mb-4'>{t('signupPage.title')}</h1>
-                    <Form.Group className='form-floating mb-3'>
+                  <Form onSubmit={handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+                    <h1 className="text-center mb-4">{t('signupPage.title')}</h1>
+                    <Form.Group className="form-floating mb-3">
                       <Field
                         as={Form.Control}
                         id="username"
@@ -91,7 +93,7 @@ const SingupPage = () => {
                         isInvalid={isExistingUser || (touched.username && errors.username)}
                         required
                       />
-                      <Form.Label htmlFor='username'>{t('signupPage.usernameLable')}</Form.Label>
+                      <Form.Label htmlFor="username">{t('signupPage.usernameLable')}</Form.Label>
                       <Form.Control.Feedback type="invalid" tooltip>
                         {!isValid && errors.username}
                       </Form.Control.Feedback>
@@ -110,7 +112,7 @@ const SingupPage = () => {
                         isInvalid={isExistingUser || (touched.password && errors.password)}
                         required
                       />
-                      <Form.Label htmlFor='password'>{t('signupPage.passwordLable')}</Form.Label>
+                      <Form.Label htmlFor="password">{t('signupPage.passwordLable')}</Form.Label>
                       <Form.Control.Feedback type="invalid" tooltip>
                         {!isValid && errors.password}
                       </Form.Control.Feedback>
@@ -126,10 +128,11 @@ const SingupPage = () => {
                         onBlur={handleBlur}
                         value={values.confirmPassword}
                         autoComplete="current-confirmPassword"
-                        isInvalid={isExistingUser || (touched.confirmPassword && errors.confirmPassword)}
+                        isInvalid={isExistingUser
+                          || (touched.confirmPassword && errors.confirmPassword)}
                         required
                       />
-                      <Form.Label htmlFor='confirmPassword'>{t('signupPage.confirmPasswordLable')}</Form.Label>
+                      <Form.Label htmlFor="confirmPassword">{t('signupPage.confirmPasswordLable')}</Form.Label>
                       <Form.Control.Feedback type="invalid" tooltip>
                         {(!isValid && errors.confirmPassword) || (isExistingUser && 'Такой пользователь уже существует')}
                       </Form.Control.Feedback>
@@ -137,7 +140,7 @@ const SingupPage = () => {
                         {isExistingUser && 'Такой пользователь уже существует'}
                       </Form.Control.Feedback>
                     </Form.Group>
-                    <Button className='w-100 btn btn-outline-primary' variant="outline-primary" type="submit">
+                    <Button className="w-100 btn btn-outline-primary" variant="outline-primary" type="submit">
                       {t('signupPage.registration')}
                     </Button>
                   </Form>
@@ -147,8 +150,8 @@ const SingupPage = () => {
           </Card>
         </Col>
       </Row>
-    </Container >
-  )
+    </Container>
+  );
 }
 
 export default SingupPage;

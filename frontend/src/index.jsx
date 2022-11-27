@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import './index.css';
 
-import Component from './components/App.jsx';
+import Component from './components/App';
 import Providers from './contexts';
 import apiFun from './api';
 
@@ -17,5 +17,5 @@ root.render(
     <BrowserRouter>
       <Component />
     </BrowserRouter>
-  </Providers>
+  </Providers>,
 );

@@ -1,11 +1,18 @@
-import React, { useState, useEffect, createContext, useContext, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useCallback,
+  useMemo,
+} from 'react';
 import { useApi } from './ApiProvider';
 
-const getDataFromLocalStorage = () => JSON.parse(localStorage.getItem('user'))?.username ? JSON.parse(localStorage.getItem('user')) : {};
+const getDataFromLocalStorage = () => (JSON.parse(localStorage.getItem('user'))?.username ? JSON.parse(localStorage.getItem('user')) : {});
 
 const AuthContext = createContext({});
 
-const AuthProvider = ({ children }) => {
+function AuthProvider({ children }) {
   const [user, setUser] = useState(getDataFromLocalStorage());
 
   const { connect, disconnect } = useApi();
@@ -23,19 +30,21 @@ const AuthProvider = ({ children }) => {
   const logIn = useCallback(({ username, token }) => {
     localStorage.setItem('user', JSON.stringify({ username, token }));
     setUser({ username, token });
-  }, [])
+  }, []);
 
-  const logOut = () => {
+  const logOut = useCallback(() => {
     localStorage.clear();
-    setUser({})
-  };
+    setUser({});
+  }, []);
+
+  const value = useMemo(() => ({ logIn, logOut, user }), [logIn, logOut, user]);
 
   return (
-    <AuthContext.Provider value={{ user, logIn, logOut }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 export const useAuth = () => useContext(AuthContext);
 

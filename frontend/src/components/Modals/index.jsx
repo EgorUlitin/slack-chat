@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { typeModalSelector } from '../../slices';
@@ -7,7 +8,7 @@ import AddChannelModal from './AddChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 
-const ModalComponent = () => {
+function ModalComponent() {
   const dispatch = useDispatch();
 
   const type = useSelector(typeModalSelector);
@@ -24,7 +25,7 @@ const ModalComponent = () => {
 
   return (
     type && <Modal onHide={onHide} />
-  )
-};
+  );
+}
 
 export default ModalComponent;

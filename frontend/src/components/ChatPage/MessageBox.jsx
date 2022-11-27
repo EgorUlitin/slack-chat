@@ -1,8 +1,9 @@
-import ChannelHeader from "./ChannelHeader";
-import MessageInput from "./MessageInput";
-import MessagesList from "./MessagesList";
+import React from 'react';
+import ChannelHeader from './ChannelHeader';
+import MessageInput from './MessageInput';
+import MessagesList from './MessagesList';
 
-const MessageBox = () => {
+function MessageBox() {
   return (
     <div className="col p-0 h-100">
       <div className="d-flex flex-column h-100">
@@ -11,7 +12,7 @@ const MessageBox = () => {
         <MessageInput />
       </div>
     </div>
-  )
-};
+  );
+}
 
 export default MessageBox;
