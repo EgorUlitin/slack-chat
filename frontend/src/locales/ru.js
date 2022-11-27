@@ -88,7 +88,7 @@ const ru = {
         succes: 'Канал переименован',
       },
       removeChannel: {
-        succes: 'Канал удален',
+        succes: 'Канал удалён',
       },
     }
   },
