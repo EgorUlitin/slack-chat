@@ -29,16 +29,18 @@ const ChannelList = () => {
                 <span className="me-1">#</span>
                 {name}
               </button>
-              {removable && <DropdownButton
+              {removable && <Dropdown
                 as={ButtonGroup}
                 key={id}
-                variant={isActiveChannel ? 'secondary' : ''}
-                title={''}
               >
-                <span class="visually-hidden">Управление каналом</span>
-                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'remove', data: id }))} eventKey="1">{t('channelList.delete')}</Dropdown.Item>
-                <Dropdown.Item onClick={() => dispatch(openModal({ type: 'rename', data: id }))} eventKey="2">{t('channelList.rename')}</Dropdown.Item>
-              </DropdownButton>}
+                <Dropdown.Toggle variant={isActiveChannel ? 'secondary' : ''} id="dropdown-basic">
+                  <span class="visually-hidden">Управление каналом</span>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'remove', data: id }))} eventKey="1">{t('channelList.delete')}</Dropdown.Item>
+                  <Dropdown.Item onClick={() => dispatch(openModal({ type: 'rename', data: id }))} eventKey="2">{t('channelList.rename')}</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>}
             </ButtonGroup>
           </li>
         })}
