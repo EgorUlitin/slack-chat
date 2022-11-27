@@ -35,6 +35,7 @@ const ChannelList = () => {
                 variant={isActiveChannel ? 'secondary' : ''}
                 title={''}
               >
+                <span class="visually-hidden">Управление каналом</span>
                 <Dropdown.Item onClick={() => dispatch(openModal({ type: 'remove', data: id }))} eventKey="1">{t('channelList.delete')}</Dropdown.Item>
                 <Dropdown.Item onClick={() => dispatch(openModal({ type: 'rename', data: id }))} eventKey="2">{t('channelList.rename')}</Dropdown.Item>
               </DropdownButton>}
