@@ -8,14 +8,12 @@ const rollbarConfig = {
   environment: 'production',
 };
 
-function RollbarProvider({ children }) {
-  return (
-    <Provider config={rollbarConfig}>
-      <ErrorBoundary>
-        {children}
-      </ErrorBoundary>
-    </Provider>
-  );
-}
+const RollbarProvider = ({ children }) => (
+  <Provider config={rollbarConfig}>
+    <ErrorBoundary>
+      {children}
+    </ErrorBoundary>
+  </Provider>
+);
 
 export default RollbarProvider;

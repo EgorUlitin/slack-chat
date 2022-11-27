@@ -6,7 +6,7 @@ import { useApi } from '../../contexts/ApiProvider';
 
 import { dataModalSelector } from '../../slices';
 
-function RemoveChannelModal({ onHide }) {
+const RemoveChannelModal = ({ onHide }) => {
   const { apiRemoveChannel } = useApi();
   const { t } = useTranslation();
   const ref = useRef();
@@ -42,6 +42,6 @@ function RemoveChannelModal({ onHide }) {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default RemoveChannelModal;

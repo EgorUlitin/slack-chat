@@ -12,7 +12,7 @@ const getDataFromLocalStorage = () => (JSON.parse(localStorage.getItem('user'))?
 
 const AuthContext = createContext({});
 
-function AuthProvider({ children }) {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getDataFromLocalStorage());
 
   const { connect, disconnect } = useApi();
@@ -44,7 +44,7 @@ function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export const useAuth = () => useContext(AuthContext);
 

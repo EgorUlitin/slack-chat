@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 const ApiContext = createContext({});
 
-function ApiProvider({ children, api }) {
+const ApiProvider = ({ children, api }) => {
   const { t } = useTranslation();
 
   const connect = useCallback(() => api.connect(), [api]);
@@ -36,7 +36,7 @@ function ApiProvider({ children, api }) {
       {children}
     </ApiContext.Provider>
   );
-}
+};
 
 export const useApi = () => useContext(ApiContext);
 

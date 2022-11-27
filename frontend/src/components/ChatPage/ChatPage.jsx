@@ -8,7 +8,7 @@ import { fetchData } from '../../slices/fetchData';
 import ChannelList from './ChannelList';
 import MessageBox from './MessageBox';
 
-function ChatPage() {
+const ChatPage = () => {
   const dispatch = useDispatch();
   const rollbar = useRollbar();
 
@@ -24,6 +24,6 @@ function ChatPage() {
       </Row>
     </Container>
   );
-}
+};
 
 export default ChatPage;

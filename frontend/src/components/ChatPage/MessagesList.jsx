@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import React, { useRef, useEffect } from 'react';
 import { currentChannelMessagesSelector } from '../../slices';
 
-function MessagesList() {
+const MessagesList = () => {
   const ref = useRef();
 
   const messages = useSelector(currentChannelMessagesSelector);
@@ -23,6 +23,6 @@ function MessagesList() {
       ))}
     </div>
   );
-}
+};
 
 export default MessagesList;

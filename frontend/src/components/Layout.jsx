@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { useAuth } from '../contexts/AuthProvider';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Layout() {
+const Layout = () => {
   const auth = useAuth();
   const { t } = useTranslation();
 
@@ -28,6 +28,6 @@ function Layout() {
       </div>
     </div>
   );
-}
+};
 
 export default Layout;

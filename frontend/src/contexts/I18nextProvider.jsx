@@ -13,12 +13,10 @@ i18nInstance
     resources,
   });
 
-function I18Provider({ children }) {
-  return (
-    <I18nextProvider i18n={i18nInstance}>
-      {children}
-    </I18nextProvider>
-  );
-}
+const I18Provider = ({ children }) => (
+  <I18nextProvider i18n={i18nInstance}>
+    {children}
+  </I18nextProvider>
+);
 
 export default I18Provider;

@@ -8,7 +8,7 @@ import AddChannelModal from './AddChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 
-function ModalComponent() {
+const ModalComponent = () => {
   const dispatch = useDispatch();
 
   const type = useSelector(typeModalSelector);
@@ -26,6 +26,6 @@ function ModalComponent() {
   return (
     type && <Modal onHide={onHide} />
   );
-}
+};
 
 export default ModalComponent;

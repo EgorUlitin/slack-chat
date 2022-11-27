@@ -12,7 +12,7 @@ import routes from '../routes/routes';
 
 import image from '../signup_img.jpg';
 
-function SingupPage() {
+const SingupPage = () => {
   const [isExistingUser, setExistingUser] = useState(false);
   const inputRef = useRef();
   const auth = useAuth();
@@ -152,6 +152,6 @@ function SingupPage() {
       </Row>
     </Container>
   );
-}
+};
 
 export default SingupPage;

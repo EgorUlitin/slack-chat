@@ -11,7 +11,7 @@ import { useApi } from '../../contexts/ApiProvider';
 
 import { channelsSelector } from '../../slices';
 
-function AddChannelModal({ onHide }) {
+const AddChannelModal = ({ onHide }) => {
   const inputRef = useRef();
   const { createNewChannel } = useApi();
   const { t } = useTranslation();
@@ -91,6 +91,6 @@ function AddChannelModal({ onHide }) {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default AddChannelModal;
