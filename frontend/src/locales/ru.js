@@ -82,7 +82,7 @@ const ru = {
     },
     toast: {
       addChannel: {
-        succes: 'Канал добавлен',
+        succes: 'Канал создан',
       },
       renameChannel: {
         succes: 'Канал переименован',
