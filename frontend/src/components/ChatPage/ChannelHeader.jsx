@@ -13,6 +13,7 @@ const ChannelHeader = () => {
       <p className="m-0">
         <b>
           #
+          {' '}
           {name}
         </b>
       </p>
