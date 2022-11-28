@@ -28,7 +28,7 @@ const MessageInput = () => {
 
     const { value } = e.target;
 
-    schema.validate({ message })
+    schema.validate({ message: value })
       .then(() => toggleDisabled(false))
       .catch(() => toggleDisabled(true));
 
