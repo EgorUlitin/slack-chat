@@ -6,6 +6,8 @@ import {
   Navigate,
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import routes from '../routes';
+import { useAuth } from '../contexts/AuthProvider';
 
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
@@ -15,17 +17,18 @@ import SingupPage from './SingupPage';
 import ModalComponent from './Modals/index';
 
 const PrivetRoute = ({ children }) => {
-  const { token } = localStorage.length && JSON.parse(localStorage.user);
+  const { user: token } = useAuth();
+
   const location = useLocation();
 
   return (
-    token ? children : <Navigate to="/login" state={{ state: location }} />
+    token ? children : <Navigate to={routes.loginPage()} state={{ state: location }} />
   );
 };
 
 const App = () => (
   <Routes>
-    <Route path="/" element={<Layout />}>
+    <Route path={routes.indexPage()} element={<Layout />}>
       <Route
         index
         element={(
@@ -33,11 +36,11 @@ const App = () => (
             <ChatPage />
             <ModalComponent />
           </PrivetRoute>
-          )}
+        )}
       />
-      <Route path="login" element={<LoginPage />} />
-      <Route path="signup" element={<SingupPage />} />
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path={routes.loginPage()} element={<LoginPage />} />
+      <Route path={routes.signupPage()} element={<SingupPage />} />
+      <Route path={routes.notfoundPage()} element={<NotFoundPage />} />
     </Route>
   </Routes>
 );

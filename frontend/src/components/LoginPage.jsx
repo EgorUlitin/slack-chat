@@ -11,7 +11,7 @@ import {
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useAuth } from '../contexts/AuthProvider';
-import routes from '../routes/routes';
+import routes from '../routes';
 
 import image from '../login_img.jpg';
 
@@ -117,7 +117,7 @@ const LoginPage = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span>{t('loginPage.footerText')}</span>
-                <Link to="/signup">{t('loginPage.footerLink')}</Link>
+                <Link to={routes.signupPage()}>{t('loginPage.footerLink')}</Link>
               </div>
             </Card.Footer>
           </Card>

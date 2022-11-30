@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import routes from '../routes/routes';
+import routes from '../routes';
 
 export const fetchData = createAsyncThunk(
   'data/fetchData',

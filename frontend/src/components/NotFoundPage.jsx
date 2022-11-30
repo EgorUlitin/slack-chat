@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import image from '../404image.svg';
+import routes from '../routes';
 
 const NotFoundPage = () => {
   const { t } = useTranslation();
@@ -12,7 +13,7 @@ const NotFoundPage = () => {
       <h1 className="h4 text-muted">{t('notFoundPage.h1')}</h1>
       <p className="text-muted">
         <span>{t('notFoundPage.span')}</span>
-        <Link to="/">{t('notFoundPage.link')}</Link>
+        <Link to={routes.indexPage()}>{t('notFoundPage.link')}</Link>
       </p>
     </div>
   );

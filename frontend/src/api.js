@@ -6,9 +6,8 @@ import {
 } from './slices/channelsSlice';
 import { addMessage, removeMessagesByChannelId } from './slices/messagesSlice';
 
-const socket = io({ autoConnect: false });
-
 const api = () => {
+  const socket = io({ autoConnect: false });
   const { dispatch } = store;
 
   socket.on('newChannel', (payload) => dispatch(addChannels(payload)));

@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { useAuth } from '../contexts/AuthProvider';
-import routes from '../routes/routes';
+import routes from '../routes';
 
 import image from '../signup_img.jpg';
 
