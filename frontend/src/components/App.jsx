@@ -22,7 +22,7 @@ const PrivetRoute = ({ children }) => {
   const location = useLocation();
 
   return (
-    user.hasOwnProperty('token') ? children : <Navigate to={routes.loginPage()} state={{ state: location }} />
+    Object.hasOwn(user, 'token') ? children : <Navigate to={routes.loginPage()} state={{ state: location }} />
   );
 };
 

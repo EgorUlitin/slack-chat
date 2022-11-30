@@ -13,11 +13,12 @@ const I18Provider = ({ children }) => {
       debug: false,
       resources,
     });
+
   return (
     <I18nextProvider i18n={i18nInstance}>
       {children}
     </I18nextProvider>
-  )
+  );
 };
 
 export default I18Provider;
