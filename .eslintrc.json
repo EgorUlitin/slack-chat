@@ -22,7 +22,6 @@
         "react-hooks"
     ],
     "rules": {
-        "eol-last": 0,
         "react/function-component-definition": [
             2,
             {
