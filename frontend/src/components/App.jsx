@@ -17,12 +17,12 @@ import SingupPage from './SingupPage';
 import ModalComponent from './Modals/index';
 
 const PrivetRoute = ({ children }) => {
-  const { user: token } = useAuth();
+  const { user } = useAuth();
 
   const location = useLocation();
 
   return (
-    token ? children : <Navigate to={routes.loginPage()} state={{ state: location }} />
+    user.hasOwnProperty('token') ? children : <Navigate to={routes.loginPage()} state={{ state: location }} />
   );
 };
 

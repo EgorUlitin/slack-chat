@@ -14,7 +14,6 @@ const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getDataFromLocalStorage());
-
   const { connect, disconnect } = useApi();
 
   useEffect(() => {
