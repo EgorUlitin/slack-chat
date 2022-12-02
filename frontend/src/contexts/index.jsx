@@ -1,14 +1,14 @@
 import React from 'react';
+import { I18nextProvider } from 'react-i18next';
 
 import AuthProvider from './AuthProvider';
 import ReduxProvider from './ReduxProvider';
 import ApiProvider from './ApiProvider';
 import RollbarProvider from './RollbarProvider';
-import { I18nextProvider } from 'react-i18next';
 
-const Providers = ({ children, api }) => (
+const Providers = ({ children, api, i18nInstance }) => (
   <RollbarProvider>
-    <I18nextProvider>
+    <I18nextProvider i18n={i18nInstance}>
       <ApiProvider api={api}>
         <ReduxProvider>
           <AuthProvider>

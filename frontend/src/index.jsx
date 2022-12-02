@@ -27,7 +27,7 @@ const app = async () => {
   const root = createRoot(container);
 
   root.render(
-    <Providers api={api}>
+    <Providers api={api} i18nInstance={i18nInstance}>
       <BrowserRouter>
         <Component />
       </BrowserRouter>
