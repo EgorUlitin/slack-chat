@@ -15,7 +15,8 @@ const app = async () => {
   const api = apiFun();
 
   const i18nInstance = i18n.createInstance();
-  await i18nInstance.use(initReactI18next)
+  await i18nInstance
+    .use(initReactI18next)
     .init({
       lng: 'ru',
       debug: false,
@@ -26,7 +27,7 @@ const app = async () => {
   const root = createRoot(container);
 
   root.render(
-    <Providers api={api} i18nInstance={i18nInstance}>
+    <Providers api={api}>
       <BrowserRouter>
         <Component />
       </BrowserRouter>
