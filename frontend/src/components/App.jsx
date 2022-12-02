@@ -13,7 +13,7 @@ import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
 import Layout from './Layout';
 import ChatPage from './ChatPage/ChatPage';
-import SingupPage from './SingupPage';
+import SignupPage from './SignupPage';
 import ModalComponent from './Modals/index';
 
 const PrivetRoute = ({ children }) => {
@@ -39,7 +39,7 @@ const App = () => (
         )}
       />
       <Route path={routes.loginPage()} element={<LoginPage />} />
-      <Route path={routes.signupPage()} element={<SingupPage />} />
+      <Route path={routes.signupPage()} element={<SignupPage />} />
       <Route path={routes.notfoundPage()} element={<NotFoundPage />} />
     </Route>
   </Routes>

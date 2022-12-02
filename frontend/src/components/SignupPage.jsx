@@ -12,7 +12,7 @@ import routes from '../routes';
 
 import image from '../signup_img.jpg';
 
-const SingupPage = () => {
+const SignupPage = () => {
   const [isExistingUser, setExistingUser] = useState(false);
   const inputRef = useRef();
   const auth = useAuth();
@@ -154,4 +154,4 @@ const SingupPage = () => {
   );
 };
 
-export default SingupPage;
+export default SignupPage;
