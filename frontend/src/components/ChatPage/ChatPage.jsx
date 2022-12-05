@@ -26,7 +26,7 @@ const ChatPage = () => {
           navigate(routes.loginPage());
         }
         rollbar.error('Error on fetchData', error);
-      })
+      });
   }, [dispatch, rollbar, logOut, navigate]);
 
   return (
