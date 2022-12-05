@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, Row } from 'react-bootstrap';
 import { useRollbar } from '@rollbar/react';
+import { useNavigate } from 'react-router-dom';
 
 import { fetchData } from '../../slices/fetchData';
+import { useAuth } from '../../contexts/AuthProvider';
+import routes from '../../routes';
 
 import ChannelList from './ChannelList';
 import MessageBox from './MessageBox';
@@ -11,10 +14,20 @@ import MessageBox from './MessageBox';
 const ChatPage = () => {
   const dispatch = useDispatch();
   const rollbar = useRollbar();
+  const navigate = useNavigate();
+  const { logOut } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchData()).catch((error) => rollbar.error('Error on fetchData', error));
-  }, [dispatch, rollbar]);
+    dispatch(fetchData())
+      .unwrap()
+      .catch((error) => {
+        if (error.response?.status === 401) {
+          logOut();
+          navigate(routes.loginPage());
+        }
+        rollbar.error('Error on fetchData', error);
+      })
+  }, [dispatch, rollbar, logOut, navigate]);
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
