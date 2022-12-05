@@ -22,6 +22,7 @@ const schema = yup.object().shape({
 
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const rollbar = useRollbar();
   const inputRef = useRef();
@@ -41,6 +42,7 @@ const LoginPage = () => {
     },
     onSubmit: async (values) => {
       setAuthFailed(false);
+      setIsDisabled(true);
 
       schema.validate(values)
         .then(async (data) => {
@@ -52,6 +54,7 @@ const LoginPage = () => {
           navigate(from);
         })
         .catch((error) => {
+          setIsDisabled(false);
           rollbar.error('Error on login', error, values);
 
           if (error?.response?.status === 401) {
@@ -77,41 +80,43 @@ const LoginPage = () => {
                 <Card.Img className="rounded-circle" variant="center" src={image} />
               </div>
               <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-                <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
-                <Form.Group className="form-floating mb-3">
-                  <Form.Control
-                    className={inputStyle}
-                    onChange={formik.handleChange}
-                    value={formik.values.username}
-                    id="username"
-                    name="username"
-                    autoComplete="username"
-                    placeholder="Ваш ник"
-                    required
-                    ref={inputRef}
-                  />
-                  <Form.Label htmlFor="username">{t('loginPage.nicknameLable')}</Form.Label>
-                </Form.Group>
-                <Form.Group className="form-floating mb-4">
-                  <Form.Control
-                    className={inputStyle}
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                    id="password"
-                    type="password"
-                    name="password"
-                    autoComplete="current-password"
-                    placeholder="Пароль"
-                    required
-                  />
-                  <Form.Label htmlFor="password">{t('loginPage.passwordLable')}</Form.Label>
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {authFailed && t('loginPage.wrongData')}
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Button className="w-100 mb-3 btn btn-outline-primary" variant="outline-primary" type="submit">
-                  {t('loginPage.login')}
-                </Button>
+                <fieldset disabled={isDisabled}>
+                  <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
+                  <Form.Group className="form-floating mb-3">
+                    <Form.Control
+                      className={inputStyle}
+                      onChange={formik.handleChange}
+                      value={formik.values.username}
+                      id="username"
+                      name="username"
+                      autoComplete="username"
+                      placeholder="Ваш ник"
+                      required
+                      ref={inputRef}
+                    />
+                    <Form.Label htmlFor="username">{t('loginPage.nicknameLable')}</Form.Label>
+                  </Form.Group>
+                  <Form.Group className="form-floating mb-4">
+                    <Form.Control
+                      className={inputStyle}
+                      onChange={formik.handleChange}
+                      value={formik.values.password}
+                      id="password"
+                      type="password"
+                      name="password"
+                      autoComplete="current-password"
+                      placeholder="Пароль"
+                      required
+                    />
+                    <Form.Label htmlFor="password">{t('loginPage.passwordLable')}</Form.Label>
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {authFailed && t('loginPage.wrongData')}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Button className="w-100 mb-3 btn btn-outline-primary" variant="outline-primary" type="submit">
+                    {t('loginPage.login')}
+                  </Button>
+                </fieldset>
               </Form>
             </Card.Body>
             <Card.Footer className="p-4">

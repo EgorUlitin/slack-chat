@@ -14,6 +14,7 @@ import image from '../signup_img.jpg';
 
 const SignupPage = () => {
   const [isExistingUser, setExistingUser] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const inputRef = useRef();
   const auth = useAuth();
   const { t } = useTranslation();
@@ -25,6 +26,7 @@ const SignupPage = () => {
   }, []);
 
   const onSubmit = (userData) => {
+    setIsDisabled(true);
     const body = { username: userData.username, password: userData.password };
 
     axios.post(routes.signupPath(), body)
@@ -39,6 +41,7 @@ const SignupPage = () => {
         navigate(from);
       })
       .catch((error) => {
+        setIsDisabled(false);
         if (error.response.status === 409) {
           setExistingUser(true);
         }
@@ -80,69 +83,71 @@ const SignupPage = () => {
                   touched,
                 }) => (
                   <Form onSubmit={handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-                    <h1 className="text-center mb-4">{t('signupPage.title')}</h1>
-                    <Form.Group className="form-floating mb-3">
-                      <Field
-                        as={Form.Control}
-                        id="username"
-                        name="username"
-                        placeholder="Имя пользователя"
-                        value={values.username}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        isInvalid={isExistingUser || (touched.username && errors.username)}
-                        required
-                      />
-                      <Form.Label htmlFor="username">{t('signupPage.usernameLable')}</Form.Label>
-                      <Form.Control.Feedback type="invalid" tooltip>
-                        {!isValid && errors.username}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="form-floating mb-4">
-                      <Field
-                        as={Form.Control}
-                        placeholder="Пароль"
-                        id="password"
-                        name="password"
-                        type="password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password}
-                        autoComplete="current-password"
-                        isInvalid={isExistingUser || (touched.password && errors.password)}
-                        required
-                      />
-                      <Form.Label htmlFor="password">{t('signupPage.passwordLable')}</Form.Label>
-                      <Form.Control.Feedback type="invalid" tooltip>
-                        {!isValid && errors.password}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="form-floating mb-4">
-                      <Field
-                        as={Form.Control}
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        placeholder="Пароль"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.confirmPassword}
-                        autoComplete="current-confirmPassword"
-                        isInvalid={isExistingUser
-                          || (touched.confirmPassword && errors.confirmPassword)}
-                        required
-                      />
-                      <Form.Label htmlFor="confirmPassword">{t('signupPage.confirmPasswordLable')}</Form.Label>
-                      <Form.Control.Feedback type="invalid" tooltip>
-                        {(!isValid && errors.confirmPassword) || (isExistingUser && 'Такой пользователь уже существует')}
-                      </Form.Control.Feedback>
-                      <Form.Control.Feedback type="invalid" tooltip>
-                        {isExistingUser && 'Такой пользователь уже существует'}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Button className="w-100 btn btn-outline-primary" variant="outline-primary" type="submit">
-                      {t('signupPage.registration')}
-                    </Button>
+                    <fieldset disabled={isDisabled}>
+                      <h1 className="text-center mb-4">{t('signupPage.title')}</h1>
+                      <Form.Group className="form-floating mb-3">
+                        <Field
+                          as={Form.Control}
+                          id="username"
+                          name="username"
+                          placeholder="Имя пользователя"
+                          value={values.username}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          isInvalid={isExistingUser || (touched.username && errors.username)}
+                          required
+                        />
+                        <Form.Label htmlFor="username">{t('signupPage.usernameLable')}</Form.Label>
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          {!isValid && errors.username}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <Form.Group className="form-floating mb-4">
+                        <Field
+                          as={Form.Control}
+                          placeholder="Пароль"
+                          id="password"
+                          name="password"
+                          type="password"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.password}
+                          autoComplete="current-password"
+                          isInvalid={isExistingUser || (touched.password && errors.password)}
+                          required
+                        />
+                        <Form.Label htmlFor="password">{t('signupPage.passwordLable')}</Form.Label>
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          {!isValid && errors.password}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <Form.Group className="form-floating mb-4">
+                        <Field
+                          as={Form.Control}
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          type="password"
+                          placeholder="Пароль"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.confirmPassword}
+                          autoComplete="current-confirmPassword"
+                          isInvalid={isExistingUser
+                            || (touched.confirmPassword && errors.confirmPassword)}
+                          required
+                        />
+                        <Form.Label htmlFor="confirmPassword">{t('signupPage.confirmPasswordLable')}</Form.Label>
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          {(!isValid && errors.confirmPassword) || (isExistingUser && 'Такой пользователь уже существует')}
+                        </Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          {isExistingUser && 'Такой пользователь уже существует'}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <Button className="w-100 btn btn-outline-primary" variant="outline-primary" type="submit">
+                        {t('signupPage.registration')}
+                      </Button>
+                    </fieldset>
                   </Form>
                 )}
               </Formik>
