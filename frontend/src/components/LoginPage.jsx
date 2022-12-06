@@ -42,9 +42,8 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       setAuthFailed(false);
 
-      schema.validate(values)
+      await schema.validate(values)
         .then(async (data) => {
-          formik.setSubmitting(true);
           const { data: { username, token } } = await axios.post(routes.loginPath(), data);
 
           auth.logIn({ username, token });
@@ -53,7 +52,6 @@ const LoginPage = () => {
           navigate(from);
         })
         .catch((error) => {
-          formik.setSubmitting(false);
           rollbar.error('Error on login', error, values);
 
           if (error?.response?.status === 401) {
