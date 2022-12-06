@@ -22,7 +22,6 @@ const schema = yup.object().shape({
 
 const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
 
   const rollbar = useRollbar();
   const inputRef = useRef();
@@ -42,10 +41,10 @@ const LoginPage = () => {
     },
     onSubmit: async (values) => {
       setAuthFailed(false);
-      setIsDisabled(true);
 
       schema.validate(values)
         .then(async (data) => {
+          formik.setSubmitting(true);
           const { data: { username, token } } = await axios.post(routes.loginPath(), data);
 
           auth.logIn({ username, token });
@@ -54,7 +53,7 @@ const LoginPage = () => {
           navigate(from);
         })
         .catch((error) => {
-          setIsDisabled(false);
+          formik.setSubmitting(false);
           rollbar.error('Error on login', error, values);
 
           if (error?.response?.status === 401) {
@@ -80,7 +79,7 @@ const LoginPage = () => {
                 <Card.Img className="rounded-circle" variant="center" src={image} />
               </div>
               <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-                <fieldset disabled={isDisabled}>
+                <fieldset disabled={formik.isSubmitting}>
                   <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control

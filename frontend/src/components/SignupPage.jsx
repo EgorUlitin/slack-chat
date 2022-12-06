@@ -14,7 +14,6 @@ import image from '../signup_img.jpg';
 
 const SignupPage = () => {
   const [isExistingUser, setExistingUser] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
   const inputRef = useRef();
   const auth = useAuth();
   const { t } = useTranslation();
@@ -26,7 +25,6 @@ const SignupPage = () => {
   }, []);
 
   const onSubmit = (userData) => {
-    setIsDisabled(true);
     const body = { username: userData.username, password: userData.password };
 
     axios.post(routes.signupPath(), body)
@@ -41,7 +39,6 @@ const SignupPage = () => {
         navigate(from);
       })
       .catch((error) => {
-        setIsDisabled(false);
         if (error.response.status === 409) {
           setExistingUser(true);
         }
@@ -77,13 +74,14 @@ const SignupPage = () => {
                   handleSubmit,
                   handleChange,
                   handleBlur,
+                  isSubmitting,
                   values,
                   errors,
                   isValid,
                   touched,
                 }) => (
                   <Form onSubmit={handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-                    <fieldset disabled={isDisabled}>
+                    <fieldset disabled={isSubmitting}>
                       <h1 className="text-center mb-4">{t('signupPage.title')}</h1>
                       <Form.Group className="form-floating mb-3">
                         <Field
