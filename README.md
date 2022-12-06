@@ -6,7 +6,7 @@
 ## Install
 
 ```bash
-make install
+$ make install
 ```
 
 ## Run
