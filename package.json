@@ -22,6 +22,9 @@
   "dependencies": {
     "@hexlet/chat-server": "^1.1.6"
   },
+  "engines": {
+    "node": "^14.18.0"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
