@@ -23,7 +23,7 @@ const app = async () => {
       resources,
     });
 
-  const container = document.getElementById('root');
+  const container = document.getElementById('root') as Element;
   const root = createRoot(container);
 
   root.render(

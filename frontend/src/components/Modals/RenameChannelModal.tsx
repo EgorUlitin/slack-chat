@@ -1,33 +1,31 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'hooks';
 import { useTranslation } from 'react-i18next';
 import {
   Modal, Button, FormLabel, Form,
 } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { object, string } from 'yup';
-import filter from 'leo-profanity';
 import { useApi } from '../../contexts/ApiProvider';
 
-import { channelsSelector } from '../../slices';
+import { channelsSelector, dataModalSelector } from '../../slices';
 
-const AddChannelModal = ({ onHide }) => {
-  const inputRef = useRef();
-  const { createNewChannel } = useApi();
+function RenameChannelModal({ onHide }: { onHide: () => void }) {
+  const { apiRenameChannel } = useApi();
   const { t } = useTranslation();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const existingChannelName = useSelector(channelsSelector).map(({ name }) => name);
-
-  const onSubmit = (data) => {
-    const filtredName = filter.clean(data.name);
-
-    createNewChannel({ name: filtredName });
-    onHide();
-  };
+  const existingChannelName = useAppSelector(channelsSelector).map(({ name }) => name);
+  const currentChannelId = useAppSelector(dataModalSelector);
 
   useEffect(() => {
     inputRef.current?.focus();
   });
+
+  const onSubmit = ({ name }: { name: string }) => {
+    apiRenameChannel({ name, id: currentChannelId });
+    onHide();
+  };
 
   return (
     <Modal
@@ -36,17 +34,19 @@ const AddChannelModal = ({ onHide }) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>{t('modals.addChannelModal.title')}</Modal.Title>
+        <Modal.Title>
+          {t('modals.renameChannelModal.title')}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
           initialValues={{ name: '' }}
           validationSchema={object({
             name: string()
-              .min(3, t('modals.erorrs.min'))
-              .max(20, t('modals.erorrs.max'))
-              .notOneOf(existingChannelName, t('modals.erorrs.notOneOf'))
-              .required(t('modals.erorrs.required')),
+              .min(3, t<string>('modals.erorrs.min'))
+              .max(20, t<string>('modals.erorrs.max'))
+              .notOneOf(existingChannelName, t<string>('modals.erorrs.notOneOf'))
+              .required(t<string>('modals.erorrs.required')),
           })}
           onSubmit={onSubmit}
           values
@@ -69,21 +69,20 @@ const AddChannelModal = ({ onHide }) => {
                 onChange={handleChange}
                 value={values.name}
                 ref={inputRef}
-                isInvalid={touched.name && errors.name}
-                type="text"
+                isInvalid={!!(touched.name && errors.name)}
               />
               <FormLabel
                 htmlFor="name"
                 className="visually-hidden"
               >
-                {t('modals.addChannelModal.lable')}
+                {t('modals.renameChannelModal.lable')}
               </FormLabel>
               <Form.Control.Feedback type="invalid">
                 {!isValid && errors.name}
               </Form.Control.Feedback>
               <div className="d-flex justify-content-end">
-                <Button className="me-2 btn-secondary" onClick={onHide}>{t('modals.addChannelModal.cancel')}</Button>
-                <Button type="submit" className="btn-primary">{t('modals.addChannelModal.send')}</Button>
+                <Button className="me-2 btn-secondary" onClick={onHide}>{t('modals.renameChannelModal.cancel')}</Button>
+                <Button type="submit" className="btn-primary">{t('modals.renameChannelModal.send')}</Button>
               </div>
             </Form>
           )}
@@ -91,6 +90,6 @@ const AddChannelModal = ({ onHide }) => {
       </Modal.Body>
     </Modal>
   );
-};
+}
 
-export default AddChannelModal;
+export default RenameChannelModal;

@@ -1,19 +1,20 @@
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'hooks';
 import React, { useRef, useEffect } from 'react';
+import { IMessage } from 'interfaces';
 import { currentChannelMessagesSelector } from '../../slices';
 
-const MessagesList = () => {
-  const ref = useRef();
+function MessagesList() {
+  const ref = useRef<HTMLElement>(null);
 
-  const messages = useSelector(currentChannelMessagesSelector);
+  const messages = useAppSelector(currentChannelMessagesSelector);
 
   useEffect(() => {
-    ref.current?.scrollIntoView({ alignToTop: false });
+    ref.current?.scrollIntoView({ block: 'end', inline: 'nearest' });
   });
 
   return (
     <div id="messages-box" className="chat-messages overflow-auto px-5">
-      {messages.map(({ username, body, id }) => (
+      {messages.map(({ username, body, id }: IMessage) => (
         <div key={id} className="text-break mb-2">
           <b ref={ref}>{username}</b>
           :
@@ -23,6 +24,6 @@ const MessagesList = () => {
       ))}
     </div>
   );
-};
+}
 
 export default MessagesList;

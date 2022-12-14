@@ -12,9 +12,9 @@ import routes from '../routes';
 
 import image from '../signup_img.jpg';
 
-const SignupPage = () => {
+function SignupPage() {
   const [isExistingUser, setExistingUser] = useState(false);
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
   const auth = useAuth();
   const { t } = useTranslation();
   const location = useLocation();
@@ -24,7 +24,7 @@ const SignupPage = () => {
     inputRef.current?.focus();
   }, []);
 
-  const onSubmit = (userData) => {
+  const onSubmit = (userData: { username: string, password: string, confirmPassword: string }) => {
     const body = { username: userData.username, password: userData.password };
 
     axios.post(routes.signupPath(), body)
@@ -59,11 +59,11 @@ const SignupPage = () => {
                 initialValues={{ username: '', password: '', confirmPassword: '' }}
                 validationSchema={yup.object({
                   username: yup.string()
-                    .min(3, t('signupPage.erorrs.username.min'))
-                    .max(20, t('signupPage.erorrs.username.max'))
-                    .required(t('signupPage.erorrs.username.required')),
-                  password: yup.string().min(6, 'Не менее 6 символов').required(t('signupPage.erorrs.password.min')),
-                  confirmPassword: yup.string().oneOf([yup.ref('password'), null], t('signupPage.erorrs.confirmPassword')),
+                    .min(3, t<string>('signupPage.erorrs.username.min'))
+                    .max(20, t<string>('signupPage.erorrs.username.max'))
+                    .required(t<string>('signupPage.erorrs.username.required')),
+                  password: yup.string().min(6, 'Не менее 6 символов').required(t<string>('signupPage.erorrs.password.min')),
+                  confirmPassword: yup.string().oneOf([yup.ref('password'), null], t<string>('signupPage.erorrs.confirmPassword')),
                 })}
                 onSubmit={onSubmit}
                 values
@@ -155,6 +155,6 @@ const SignupPage = () => {
       </Row>
     </Container>
   );
-};
+}
 
 export default SignupPage;

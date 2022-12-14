@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { typeModalSelector } from '../../slices';
 import { closeModal } from '../../slices/modalsSlice';
 
@@ -8,10 +7,10 @@ import AddChannelModal from './AddChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 
-const ModalComponent = () => {
-  const dispatch = useDispatch();
+function ModalComponent() {
+  const dispatch = useAppDispatch();
 
-  const type = useSelector(typeModalSelector);
+  const type = useAppSelector(typeModalSelector);
 
   const onHide = () => dispatch(closeModal());
 
@@ -21,11 +20,15 @@ const ModalComponent = () => {
     rename: RenameChannelModal,
   };
 
-  const Modal = modalTypes[type];
+  if (!type) {
+    return null;
+  }
+
+  const Modal = type && modalTypes[type];
 
   return (
-    type && <Modal onHide={onHide} />
+    <Modal onHide={onHide} />
   );
-};
+}
 
 export default ModalComponent;

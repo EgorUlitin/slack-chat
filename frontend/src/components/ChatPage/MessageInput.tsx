@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'hooks';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { Form, InputGroup, Button } from 'react-bootstrap';
@@ -12,18 +12,18 @@ const schema = yup.object().shape({
   message: yup.string().min(1).required(),
 });
 
-const MessageInput = () => {
+function MessageInput() {
   const [isDisabled, toggleDisabled] = useState(true);
   const [message, setMessage] = useState('');
 
   const { user: { username } } = useAuth();
   const { createNewMessage } = useApi();
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
 
-  const currentChannelId = useSelector(currentChannelIdSelector);
+  const currentChannelId: number = useAppSelector(currentChannelIdSelector);
 
-  const handleChange = () => (e) => {
+  const handleChange = () => (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const { value } = e.target;
@@ -35,7 +35,7 @@ const MessageInput = () => {
     setMessage(filter.clean(value));
   };
 
-  const handleSubmit = () => (e) => {
+  const handleSubmit = () => (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (message) {
@@ -45,11 +45,11 @@ const MessageInput = () => {
       toggleDisabled(true);
     }
 
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
   }, [currentChannelId]);
 
   return (
@@ -74,6 +74,6 @@ const MessageInput = () => {
       </Form>
     </div>
   );
-};
+}
 
 export default MessageInput;

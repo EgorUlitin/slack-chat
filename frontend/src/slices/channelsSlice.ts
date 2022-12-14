@@ -1,10 +1,16 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IChannel, IState } from '../interfaces';
 import { fetchData } from './fetchData';
 
 const defaultChannelId = 1;
 
-const initialState = {
+interface IChannelsState {
+  channels: IChannel[]
+  currentChannelId: number
+}
+
+const initialState: IChannelsState = {
   channels: [],
   currentChannelId: defaultChannelId,
 };
@@ -13,20 +19,20 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    addChannels: (state, action) => {
+    addChannels: (state, action: PayloadAction<IChannel>) => {
       state.channels.push(action.payload);
     },
-    switchChannel: (state, action) => {
+    switchChannel: (state, action: PayloadAction<{ id: number }>) => {
       const { id } = action.payload;
       state.currentChannelId = id;
     },
-    removeChannel: (state, action) => {
+    removeChannel: (state, action: PayloadAction<{ id: number }>) => {
       const { id } = action.payload;
       state.channels = state.channels.filter((channel) => id !== channel.id);
 
       if (id === state.currentChannelId) state.currentChannelId = defaultChannelId;
     },
-    renameChannel: (state, action) => {
+    renameChannel: (state, action: PayloadAction<{ id: number, name: string }>) => {
       const { id, name } = action.payload;
 
       state.channels = state.channels
@@ -35,7 +41,7 @@ const channelsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchData.fulfilled, (state, action) => {
+      .addCase(fetchData.fulfilled, (state, action: PayloadAction<IState>) => {
         const { channels, currentChannelId } = action.payload;
         state.channels = channels;
         state.currentChannelId = currentChannelId;

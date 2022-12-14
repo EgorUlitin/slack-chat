@@ -1,13 +1,13 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { Container, Navbar, Button } from 'react-bootstrap';
+import { Container, Navbar, Nav } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 import { useAuth } from '../contexts/AuthProvider';
 import routes from '../routes';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Layout = () => {
+function Layout() {
   const auth = useAuth();
   const { t } = useTranslation();
 
@@ -18,8 +18,10 @@ const Layout = () => {
           <div className="d-flex flex-column h-100">
             <Navbar expand="xxl" className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
               <Container>
-                <Navbar.Brand as={Link} to={routes.indexPage()} expand="lg" variant="light" bg="white">{t('navBar.brand')}</Navbar.Brand>
-                {auth.user.username && <Button as={Link} to={routes.loginPage()} onClick={auth.logOut}>{t('navBar.exit')}</Button>}
+                <Navbar expand="lg" variant="light" bg="white">
+                  <Navbar.Brand as={Link} to={routes.indexPage()}>{t('navBar.brand')}</Navbar.Brand>
+                </Navbar>
+                {auth.user.username && <Nav.Link as={Link} to={routes.loginPage()} onClick={auth.logOut}>{t('navBar.exit')}</Nav.Link>}
               </Container>
             </Navbar>
             <Outlet />
@@ -29,6 +31,6 @@ const Layout = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Layout;

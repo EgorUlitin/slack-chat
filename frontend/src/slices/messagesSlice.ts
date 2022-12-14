@@ -1,8 +1,13 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IMessage, IState } from '../interfaces';
 import { fetchData } from './fetchData';
 
-const initialState = {
+interface IMessageState {
+  messages: IMessage[]
+}
+
+const initialState: IMessageState = {
   messages: [],
 };
 
@@ -10,7 +15,7 @@ const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    addMessage: (state, action) => {
+    addMessage: (state, action: PayloadAction<IMessage>) => {
       state.messages.push(action.payload);
     },
     removeMessagesByChannelId: (state, action) => {
@@ -20,7 +25,7 @@ const messagesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchData.fulfilled, (state, action) => {
+      .addCase(fetchData.fulfilled, (state, action: PayloadAction<IState>) => {
         const { messages } = action.payload;
         state.messages = messages;
       });

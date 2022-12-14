@@ -8,11 +8,20 @@ import React, {
 } from 'react';
 import { useApi } from './ApiProvider';
 
-const getDataFromLocalStorage = () => (JSON.parse(localStorage.getItem('user'))?.username ? JSON.parse(localStorage.getItem('user')) : {});
+import { IChildren, IUser, IAuthContext } from '../interfaces';
 
-const AuthContext = createContext({});
+const getDataFromLocalStorage = () => {
+  const value = localStorage.getItem('user');
 
-const AuthProvider = ({ children }) => {
+  if (typeof value === 'string') {
+    return JSON.parse(value)?.username ? JSON.parse(value) : {};
+  }
+  return {};
+};
+
+const AuthContext = createContext<IAuthContext>({} as IAuthContext);
+
+function AuthProvider({ children }: IChildren) {
   const [user, setUser] = useState(getDataFromLocalStorage());
   const { connect, disconnect } = useApi();
 
@@ -26,14 +35,14 @@ const AuthProvider = ({ children }) => {
     }
   }, [user, connect, disconnect]);
 
-  const logIn = useCallback(({ username, token }) => {
+  const logIn = useCallback(({ username, token }: IUser) => {
     localStorage.setItem('user', JSON.stringify({ username, token }));
     setUser({ username, token });
   }, []);
 
   const logOut = useCallback(() => {
     localStorage.clear();
-    setUser({});
+    setUser({} as IUser);
   }, []);
 
   const value = useMemo(() => ({ logIn, logOut, user }), [logIn, logOut, user]);
@@ -43,7 +52,7 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 export const useAuth = () => useContext(AuthContext);
 

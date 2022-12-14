@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import image from '../404image.svg';
 import routes from '../routes';
 
-const NotFoundPage = () => {
+function NotFoundPage() {
   const { t } = useTranslation();
 
   return (
@@ -17,6 +17,6 @@ const NotFoundPage = () => {
       </p>
     </div>
   );
-};
+}
 
 export default NotFoundPage;

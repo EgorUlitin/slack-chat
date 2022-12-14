@@ -1,27 +1,28 @@
 import React from 'react';
 import cn from 'classnames';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from 'hooks';
 import { useTranslation } from 'react-i18next';
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
 
+import { IChannel } from 'interfaces';
 import { channelsSelector, currentChannelIdSelector } from '../../slices';
 import { switchChannel } from '../../slices/channelsSlice';
 import { openModal } from '../../slices/modalsSlice';
 
 import ChannelAdder from './ChannelAdder';
 
-const ChannelList = () => {
-  const dispatch = useDispatch();
-  const channels = useSelector(channelsSelector);
+function ChannelList() {
+  const dispatch = useAppDispatch();
+  const channels = useAppSelector(channelsSelector);
   const { t } = useTranslation();
 
-  const currentChannelId = useSelector(currentChannelIdSelector);
+  const currentChannelId = useAppSelector(currentChannelIdSelector);
 
   return (
     <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <ChannelAdder />
       <ul className="nav flex-column nav-pills nav-fill px-2">
-        {channels.map(({ id, name, removable }) => {
+        {channels.map(({ id, name, removable }: IChannel) => {
           const isActiveChannel = id === currentChannelId;
           const style = cn('w-100 rounded-0 text-start btn text-truncate', { 'btn-secondary': isActiveChannel });
           return (
@@ -52,6 +53,6 @@ const ChannelList = () => {
       </ul>
     </div>
   );
-};
+}
 
 export default ChannelList;

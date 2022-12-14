@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IState } from '../interfaces';
 import routes from '../routes';
 
 export const fetchData = createAsyncThunk(
@@ -12,6 +13,6 @@ export const fetchData = createAsyncThunk(
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    return (await response.data) as IState;
   },
 );

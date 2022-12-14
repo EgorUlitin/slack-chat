@@ -1,7 +1,13 @@
-/* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+export type ModalTypes = 'create' | 'remove' | 'rename' | null;
+
+interface IModalState {
+  type: ModalTypes
+  data: null | number
+}
+
+const initialState: IModalState = {
   type: null,
   data: null,
 };
@@ -10,7 +16,7 @@ const modalsSlice = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    openModal: (state, action) => {
+    openModal: (state, action: PayloadAction<IModalState>) => {
       const { type, data } = action.payload;
       state.type = type;
       state.data = data;

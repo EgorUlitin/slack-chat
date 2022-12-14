@@ -1,23 +1,23 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'hooks';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 import { useApi } from '../../contexts/ApiProvider';
 
 import { dataModalSelector } from '../../slices';
 
-const RemoveChannelModal = ({ onHide }) => {
+function RemoveChannelModal({ onHide }: { onHide: () => void }) {
   const { apiRemoveChannel } = useApi();
   const { t } = useTranslation();
-  const ref = useRef();
+  const ref = useRef<HTMLButtonElement>(null);
 
-  const currentChannelId = useSelector(dataModalSelector);
+  const currentChannelId = useAppSelector(dataModalSelector);
 
   useEffect(() => {
     ref.current?.focus();
   });
 
-  const onSubmit = (id) => {
+  const onSubmit = (id: number | null) => {
     apiRemoveChannel(id);
     onHide();
   };
@@ -42,6 +42,6 @@ const RemoveChannelModal = ({ onHide }) => {
       </Modal.Body>
     </Modal>
   );
-};
+}
 
 export default RemoveChannelModal;

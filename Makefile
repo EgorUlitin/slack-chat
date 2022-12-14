@@ -1,5 +1,5 @@
 lint:
-	npx eslint --no-eslintrc --config .eslintrc.json --ext .js,.jsx .
+	npx eslint --no-eslintrc --config .eslintrc.json --ext .ts,.tsx .
 
 lint-frontend:
 	make -C frontend lint

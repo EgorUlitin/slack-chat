@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { openModal } from '../../slices/modalsSlice';
 
-const ChannelAdder = () => {
+function ChannelAdder() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -19,6 +19,6 @@ const ChannelAdder = () => {
       </button>
     </div>
   );
-};
+}
 
 export default ChannelAdder;

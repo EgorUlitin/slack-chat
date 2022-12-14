@@ -20,18 +20,18 @@ const schema = yup.object().shape({
   password: yup.string().required(),
 });
 
-const LoginPage = () => {
+function LoginPage() {
   const [authFailed, setAuthFailed] = useState(false);
 
   const rollbar = useRollbar();
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
   const auth = useAuth();
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
   }, []);
 
   const formik = useFormik({
@@ -127,6 +127,6 @@ const LoginPage = () => {
       </Row>
     </Container>
   );
-};
+}
 
 export default LoginPage;

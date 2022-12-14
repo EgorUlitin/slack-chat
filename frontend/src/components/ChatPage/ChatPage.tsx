@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Container, Row } from 'react-bootstrap';
 import { useRollbar } from '@rollbar/react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
 
 import { fetchData } from '../../slices/fetchData';
 import { useAuth } from '../../contexts/AuthProvider';
@@ -11,8 +11,8 @@ import routes from '../../routes';
 import ChannelList from './ChannelList';
 import MessageBox from './MessageBox';
 
-const ChatPage = () => {
-  const dispatch = useDispatch();
+function ChatPage() {
+  const dispatch = useAppDispatch();
   const rollbar = useRollbar();
   const navigate = useNavigate();
   const { logOut } = useAuth();
@@ -37,6 +37,6 @@ const ChatPage = () => {
       </Row>
     </Container>
   );
-};
+}
 
 export default ChatPage;

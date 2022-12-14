@@ -5,6 +5,7 @@ import {
   addChannels, switchChannel, removeChannel, renameChannel,
 } from './slices/channelsSlice';
 import { addMessage, removeMessagesByChannelId } from './slices/messagesSlice';
+import { IMessage } from './interfaces';
 
 const api = () => {
   const socket = io({ autoConnect: false });
@@ -21,26 +22,26 @@ const api = () => {
     dispatch(removeMessagesByChannelId(payload));
   });
 
-  const createNewChannel = (t) => (name) => socket.emit('newChannel', name, ({ data, status }) => {
+  const createNewChannel = (t: Function) => (name: string) => socket.emit('newChannel', name, ({ data, status }: { data: { id: number }, status: string }) => {
     if (status === 'ok') {
       dispatch(switchChannel({ id: data.id }));
       toast.success(t('toast.addChannel.succes'));
     }
   });
 
-  const apiRenameChannel = (t) => (payload) => socket.emit('renameChannel', payload, ({ status }) => {
+  const apiRenameChannel = (t: Function) => (payload: { name: string, id: number }) => socket.emit('renameChannel', payload, ({ status }: { status: string }) => {
     if (status === 'ok') {
       toast.success(t('toast.renameChannel.succes'));
     }
   });
 
-  const apiRemoveChannel = (t) => (id) => socket.emit('removeChannel', { id }, ({ status }) => {
+  const apiRemoveChannel = (t: Function) => (id: number) => socket.emit('removeChannel', { id }, ({ status }: { status: string }) => {
     if (status === 'ok') {
       toast.success(t('toast.removeChannel.succes'));
     }
   });
 
-  const createMessage = (message) => socket.emit('newMessage', message);
+  const createMessage = (message: IMessage) => socket.emit('newMessage', message);
 
   const connect = () => socket.connect();
 
