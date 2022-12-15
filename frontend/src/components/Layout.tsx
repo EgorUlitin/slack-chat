@@ -1,6 +1,8 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { Container, Navbar, Nav } from 'react-bootstrap';
+import {
+  Container, Navbar, Nav, Button,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 import { useAuth } from '../contexts/AuthProvider';
@@ -21,7 +23,7 @@ const Layout = () => {
                 <Navbar expand="lg" variant="light" bg="white">
                   <Navbar.Brand as={Link} to={routes.indexPage()}>{t('navBar.brand')}</Navbar.Brand>
                 </Navbar>
-                {auth.user.username && <Nav.Link as={Link} to={routes.loginPage()} onClick={auth.logOut}>{t('navBar.exit')}</Nav.Link>}
+                {auth.user.username && <Nav.Link as={Link} to={routes.loginPage()} onClick={auth.logOut}><Button variant="primary">{t('navBar.exit')}</Button></Nav.Link>}
               </Container>
             </Navbar>
             <Outlet />
