@@ -9,20 +9,18 @@ import ApiProvider from './ApiProvider';
 import RollbarProvider from './RollbarProvider';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Providers({ children, api, i18nInstance }: { children: ReactNode, api: IApiFunctions, i18nInstance: any }) {
-  return (
-    <RollbarProvider>
-      <I18nextProvider i18n={i18nInstance}>
-        <ApiProvider api={api}>
-          <ReduxProvider>
-            <AuthProvider>
-              {children}
-            </AuthProvider>
-          </ReduxProvider>
-        </ApiProvider>
-      </I18nextProvider>
-    </RollbarProvider>
-  );
-}
+const Providers = ({ children, api, i18nInstance }: { children: ReactNode, api: IApiFunctions, i18nInstance: any }) => (
+  <RollbarProvider>
+    <I18nextProvider i18n={i18nInstance}>
+      <ApiProvider api={api}>
+        <ReduxProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </ReduxProvider>
+      </ApiProvider>
+    </I18nextProvider>
+  </RollbarProvider>
+);
 
 export default Providers;

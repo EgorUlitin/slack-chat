@@ -11,7 +11,7 @@ import routes from '../../routes';
 import ChannelList from './ChannelList';
 import MessageBox from './MessageBox';
 
-function ChatPage() {
+const ChatPage = () => {
   const dispatch = useAppDispatch();
   const rollbar = useRollbar();
   const navigate = useNavigate();
@@ -37,6 +37,6 @@ function ChatPage() {
       </Row>
     </Container>
   );
-}
+};
 
 export default ChatPage;

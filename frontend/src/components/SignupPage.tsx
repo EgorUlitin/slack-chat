@@ -12,7 +12,7 @@ import routes from '../routes';
 
 import image from '../signup_img.jpg';
 
-function SignupPage() {
+const SignupPage = () => {
   const [isExistingUser, setExistingUser] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const auth = useAuth();
@@ -155,6 +155,6 @@ function SignupPage() {
       </Row>
     </Container>
   );
-}
+};
 
 export default SignupPage;

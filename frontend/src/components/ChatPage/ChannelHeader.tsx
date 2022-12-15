@@ -3,7 +3,7 @@ import { useAppSelector } from 'hooks';
 import { useTranslation } from 'react-i18next';
 import { currentChannel, currentChannelMessagesSelector } from '../../slices';
 
-function ChannelHeader() {
+const ChannelHeader = () => {
   const { t } = useTranslation();
   const { name } = useAppSelector(currentChannel) || {};
   const messages = useAppSelector(currentChannelMessagesSelector);
@@ -20,6 +20,6 @@ function ChannelHeader() {
       <span className="text-muted">{t('channelHeader.messages', { count: messages.length })}</span>
     </div>
   );
-}
+};
 
 export default ChannelHeader;

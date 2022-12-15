@@ -11,7 +11,7 @@ interface IData {
 
 const ApiContext = createContext<IApiContext>({} as IApiContext);
 
-function ApiProvider({ children, api }: { children: ReactNode, api: IApiFunctions }) {
+const ApiProvider = ({ children, api }: { children: ReactNode, api: IApiFunctions }) => {
   const { t } = useTranslation();
 
   const connect = useCallback(() => api.connect(), [api]);
@@ -42,7 +42,7 @@ function ApiProvider({ children, api }: { children: ReactNode, api: IApiFunction
       {children}
     </ApiContext.Provider>
   );
-}
+};
 
 export const useApi = () => useContext(ApiContext);
 

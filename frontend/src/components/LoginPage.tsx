@@ -20,7 +20,7 @@ const schema = yup.object().shape({
   password: yup.string().required(),
 });
 
-function LoginPage() {
+const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
 
   const rollbar = useRollbar();
@@ -127,6 +127,6 @@ function LoginPage() {
       </Row>
     </Container>
   );
-}
+};
 
 export default LoginPage;

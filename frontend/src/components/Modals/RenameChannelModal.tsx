@@ -10,7 +10,7 @@ import { useApi } from '../../contexts/ApiProvider';
 
 import { channelsSelector, dataModalSelector } from '../../slices';
 
-function RenameChannelModal({ onHide }: { onHide: () => void }) {
+const RenameChannelModal = ({ onHide }: { onHide: () => void }) => {
   const { apiRenameChannel } = useApi();
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -90,6 +90,6 @@ function RenameChannelModal({ onHide }: { onHide: () => void }) {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default RenameChannelModal;

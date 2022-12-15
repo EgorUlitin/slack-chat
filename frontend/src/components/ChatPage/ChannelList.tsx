@@ -11,7 +11,7 @@ import { openModal } from '../../slices/modalsSlice';
 
 import ChannelAdder from './ChannelAdder';
 
-function ChannelList() {
+const ChannelList = () => {
   const dispatch = useAppDispatch();
   const channels = useAppSelector(channelsSelector);
   const { t } = useTranslation();
@@ -53,6 +53,6 @@ function ChannelList() {
       </ul>
     </div>
   );
-}
+};
 
 export default ChannelList;

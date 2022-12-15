@@ -18,7 +18,7 @@ import ModalComponent from './Modals/index';
 import { IChildren } from '../interfaces';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function PrivetRoute({ children }: IChildren): IChildren | any {
+const PrivetRoute = ({ children }: IChildren): IChildren | any => {
   const { user } = useAuth();
 
   const location = useLocation();
@@ -26,27 +26,25 @@ function PrivetRoute({ children }: IChildren): IChildren | any {
   return (
     Object.hasOwn(user, 'token') ? children : <Navigate to={routes.loginPage()} state={{ state: location }} />
   );
-}
+};
 
-function App() {
-  return (
-    <Routes>
-      <Route path={routes.indexPage()} element={<Layout />}>
-        <Route
-          index
-          element={(
-            <PrivetRoute>
-              <ChatPage />
-              <ModalComponent />
-            </PrivetRoute>
+const App = () => (
+  <Routes>
+    <Route path={routes.indexPage()} element={<Layout />}>
+      <Route
+        index
+        element={(
+          <PrivetRoute>
+            <ChatPage />
+            <ModalComponent />
+          </PrivetRoute>
           )}
-        />
-        <Route path={routes.loginPage()} element={<LoginPage />} />
-        <Route path={routes.signupPage()} element={<SignupPage />} />
-        <Route path={routes.notfoundPage()} element={<NotFoundPage />} />
-      </Route>
-    </Routes>
-  );
-}
+      />
+      <Route path={routes.loginPage()} element={<LoginPage />} />
+      <Route path={routes.signupPage()} element={<SignupPage />} />
+      <Route path={routes.notfoundPage()} element={<NotFoundPage />} />
+    </Route>
+  </Routes>
+);
 
 export default App;

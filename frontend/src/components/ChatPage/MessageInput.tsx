@@ -12,7 +12,7 @@ const schema = yup.object().shape({
   message: yup.string().min(1).required(),
 });
 
-function MessageInput() {
+const MessageInput = () => {
   const [isDisabled, toggleDisabled] = useState(true);
   const [message, setMessage] = useState('');
 
@@ -74,6 +74,6 @@ function MessageInput() {
       </Form>
     </div>
   );
-}
+};
 
 export default MessageInput;

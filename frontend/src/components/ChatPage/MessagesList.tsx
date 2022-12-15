@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import { IMessage } from 'interfaces';
 import { currentChannelMessagesSelector } from '../../slices';
 
-function MessagesList() {
+const MessagesList = () => {
   const ref = useRef<HTMLElement>(null);
 
   const messages = useAppSelector(currentChannelMessagesSelector);
@@ -24,6 +24,6 @@ function MessagesList() {
       ))}
     </div>
   );
-}
+};
 
 export default MessagesList;

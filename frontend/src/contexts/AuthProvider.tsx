@@ -21,7 +21,7 @@ const getDataFromLocalStorage = () => {
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
-function AuthProvider({ children }: IChildren) {
+const AuthProvider = ({ children }: IChildren) => {
   const [user, setUser] = useState(getDataFromLocalStorage());
   const { connect, disconnect } = useApi();
 
@@ -52,7 +52,7 @@ function AuthProvider({ children }: IChildren) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export const useAuth = () => useContext(AuthContext);
 
