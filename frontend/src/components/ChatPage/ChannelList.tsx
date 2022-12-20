@@ -4,9 +4,8 @@ import { useAppSelector, useAppDispatch } from 'hooks';
 import { useTranslation } from 'react-i18next';
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
 
-import { IChannel } from 'interfaces';
 import { channelsSelector, currentChannelIdSelector } from '../../slices';
-import { switchChannel } from '../../slices/channelsSlice';
+import { switchChannel, IChannel } from '../../slices/channelsSlice';
 import { openModal } from '../../slices/modalsSlice';
 
 import ChannelAdder from './ChannelAdder';

@@ -2,7 +2,24 @@ import React, {
   useMemo, createContext, useContext, useCallback, ReactNode,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IApiFunctions, IApiContext } from 'interfaces';
+
+interface IApiContext {
+  connect: () => void
+  disconnect: () => void
+  createNewMessage: Function
+  createNewChannel: Function
+  apiRemoveChannel: Function
+  apiRenameChannel: Function
+}
+
+export interface IApiFunctions {
+  connect: Function
+  disconnect: Function
+  createMessage: Function
+  createNewChannel: Function
+  apiRemoveChannel: Function
+  apiRenameChannel: Function
+}
 
 interface IData {
   name: string

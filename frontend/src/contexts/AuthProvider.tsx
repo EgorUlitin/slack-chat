@@ -5,10 +5,20 @@ import React, {
   useContext,
   useCallback,
   useMemo,
+  ReactNode,
 } from 'react';
 import { useApi } from './ApiProvider';
 
-import { IChildren, IUser, IAuthContext } from '../interfaces';
+interface IUser {
+  username: string;
+  token: string;
+}
+
+interface IAuthContext {
+  user: IUser
+  logIn: (user: IUser) => void
+  logOut: () => void
+}
 
 const getDataFromLocalStorage = () => {
   const value = localStorage.getItem('user');
@@ -21,7 +31,7 @@ const getDataFromLocalStorage = () => {
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
-const AuthProvider = ({ children }: IChildren) => {
+const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState(getDataFromLocalStorage());
   const { connect, disconnect } = useApi();
 

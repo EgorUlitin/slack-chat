@@ -1,7 +1,14 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IMessage, IState } from '../interfaces';
+import { IState } from './channelsSlice';
 import { fetchData } from './fetchData';
+
+export interface IMessage {
+  username: string
+  body: string
+  id: number
+  channelId?: number
+}
 
 interface IMessageState {
   messages: IMessage[]

@@ -1,7 +1,7 @@
 import { useAppSelector } from 'hooks';
 import React, { useRef, useEffect } from 'react';
-import { IMessage } from 'interfaces';
 import { currentChannelMessagesSelector } from '../../slices';
+import { IMessage } from '../../slices/messagesSlice';
 
 const MessagesList = () => {
   const ref = useRef<HTMLElement>(null);

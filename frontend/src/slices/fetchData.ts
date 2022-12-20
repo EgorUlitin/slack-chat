@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IState } from '../interfaces';
+import { IState } from './channelsSlice';
 import routes from '../routes';
 
 export const fetchData = createAsyncThunk(

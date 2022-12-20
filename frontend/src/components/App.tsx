@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactFragment, ReactNode } from 'react';
 import {
   Routes,
   Route,
@@ -15,10 +15,9 @@ import Layout from './Layout';
 import ChatPage from './ChatPage/ChatPage';
 import SignupPage from './SignupPage';
 import ModalComponent from './Modals/index';
-import { IChildren } from '../interfaces';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const PrivetRoute = ({ children }: IChildren): IChildren | any => {
+const PrivetRoute = ({ children }: { children: ReactNode }): ReactFragment | any => {
   const { user } = useAuth();
 
   const location = useLocation();
@@ -38,7 +37,7 @@ const App = () => (
             <ChatPage />
             <ModalComponent />
           </PrivetRoute>
-          )}
+        )}
       />
       <Route path={routes.loginPage()} element={<LoginPage />} />
       <Route path={routes.signupPage()} element={<SignupPage />} />

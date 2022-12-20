@@ -1,7 +1,27 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IChannel, IState } from '../interfaces';
+
 import { fetchData } from './fetchData';
+import { IMessage } from './messagesSlice';
+
+export interface IChannel {
+  id: number
+  name: string
+  removable: boolean
+}
+
+export interface IUserData {
+  id: number
+  username: string
+  password: string
+}
+
+export interface IState {
+  channels: IChannel[]
+  messages: IMessage[]
+  currentChannelId: number
+  users: IUserData[]
+}
 
 const defaultChannelId = 1;
 

@@ -4,8 +4,7 @@ import store from './slices';
 import {
   addChannels, switchChannel, removeChannel, renameChannel,
 } from './slices/channelsSlice';
-import { addMessage, removeMessagesByChannelId } from './slices/messagesSlice';
-import { IMessage } from './interfaces';
+import { addMessage, removeMessagesByChannelId, IMessage } from './slices/messagesSlice';
 
 const api = () => {
   const socket = io({ autoConnect: false });
