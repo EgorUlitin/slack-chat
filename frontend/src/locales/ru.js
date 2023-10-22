@@ -1,7 +1,7 @@
 const ru = {
   translation: {
     navBar: {
-      brand: 'Hexlet Chat',
+      brand: 'Chat',
       exit: 'Выход',
     },
     channelAdder: {
